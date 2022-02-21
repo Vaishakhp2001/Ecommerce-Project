@@ -1,0 +1,169 @@
+<script src="/javascripts/zoom.js"></script>
+<link rel="stylesheet" href="/stylesheets/zoom.css">
+
+<body>
+
+	
+<div class="col-7 ">
+	<div class="position-fixed   top-0 start-50 translate-middle-x " style="z-index: 11; ">
+		<div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+
+			<div class="toast-body text-white bg-dark text-center">
+				Added to cart
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"
+					style="position:absolute; right: 0; "></button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-7">
+	<div class="position-fixed top-0 start-50 translate-middle-x p-3 " style="z-index: 11; ">
+		<div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+
+			<div class="toast-body text-white bg-dark text-center">
+				Added to Wishlist
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"
+					style="position:absolute; right: 0; "></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	<section>
+		<div class="container-fluid mt-2 mb-3">
+			<div class="row">
+				<div class="col-lg-6">
+					<div id="slider-zoom" class="positive-gallery-slider ">
+						<div class="side-img ">
+							<img src="/images/{{product.image.[0]}}" alt="image-1" class="small-preview h-75 w-50">
+							<img src="/images/{{product.image.[1]}}" alt="image-2" class="small-preview h-75 w-50">
+							<img src="/images/{{product.image.[2]}}" alt="image-1" class="small-preview h-75 w-50">
+							<img src="/images/{{product.image.[3]}}" alt="image-1" class="small-preview h-75 w-50">
+						</div>
+						<div class="zoom-image "><a onclick="addToWishlist('{{product._id}}')"><i
+									class="fa fa-heart float-right m-3 text-secondary fs-5"></i></a> </div>
+					</div>
+					{{!-- <button class="" type="button" onclick="zoomin()">
+						Zoom-In
+					</button>
+
+					<button type="button" onclick="zoomout()">
+						Zoom-Out
+					</button> --}}
+				</div>
+
+
+
+
+
+				<div class="col-lg-4 bg-light">
+
+					<div>
+
+						<h1 class="fs-2 text-secondary fw-bold">{{product.name}}</h1>
+						<p class="w-100">{{product.description}} </p>
+						{{#if product.offerPrice}}
+						<h5>₹<del>{{product.price}}</del><span class="ml-2 text-success">₹{{product.offerPrice}}</span></h5>
+						{{else}}
+						<h5>₹{{product.price}}</h5>
+						{{/if}}
+						<div class="available">
+							<form action="" id="product_details">
+							
+							<input type="hidden" name="id" value="{{product._id}}">
+							<button class="btn-lg btn-info text-white" type="submit" >Add to
+								cart</button>
+
+							<div class="clear"></div>
+							</form>
+						</div>
+						{{!-- <div class="share-desc">
+							<div class="share">
+								<h4>Share Product :</h4>
+								<ul class="share_nav">
+									<li><a href="#"><img src="/images/images/facebook.png" title="facebook"></a></li>
+									<li><a href="#"><img src="/images/images/twitter.png" title="Twiiter"></a></li>
+									<li><a href="#"><img src="/images/images/rss.png" title="Rss"></a></li>
+									<li><a href="#"><img src="/images/images/gpluse.png" title="Google+"></a></li>
+								</ul>
+							</div>
+							<div class="clear"></div> --}}
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+
+
+
+
+
+			</div>
+
+	</section>
+
+
+</body>
+
+
+<script>
+	positiveZoom.init('#slider-zoom')
+
+
+	function addToCart(proId) {
+		$.ajax({
+			url: '/add-to-cart/' + proId,
+			method: 'get',
+			async: false,
+			success: (response) => {
+				if (response.status) {
+					var count = 0,
+						count = $("#cart-count").html()
+					count = parseInt(count) + 1
+					$("#cart-count").html(count)
+					new bootstrap.Toast(document.querySelector('.toast')).show();
+
+				}
+				else if (response.noUser) {
+					location.href = '/login'
+				}
+
+			}
+		})
+	}
+	function addToWishlist(Id) {
+		$.ajax({
+			url: '/add-to-wishlist/' + Id,
+			method: 'get',
+			success: (response) => {
+				if (response.status) {
+					new bootstrap.Toast(document.querySelector('#liveToast')).show();
+				}
+			}
+		})
+	}
+	$("#product_details").submit((e)=>{
+		e.preventDefault()
+		$.ajax({
+			url:"/add-to-cart",
+			method:'get',
+			data:$('#product_details').serialize(),
+			success: (response) => {
+				if (response.status) {
+					var count = 0,
+						count = $("#cart-count").html()
+					count = parseInt(count) + 1
+					$("#cart-count").html(count)
+					new bootstrap.Toast(document.querySelector('.toast')).show();
+
+				}
+				else if (response.noUser) {
+					location.href = '/login'
+				}
+
+			}
+
+		})
+	})
+
+</script>

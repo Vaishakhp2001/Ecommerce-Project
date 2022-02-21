@@ -1,0 +1,244 @@
+{{!-- modal --}}
+
+
+<div class="modal fade" id="myModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body text-center">
+                <h6>Are you sure want to remove product from cart?</h6>
+
+            </div>
+            <div class="modal-footer bg-light justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn_remove btn btn-primary" id="btn_remove" value=""
+                    onclick="Remove(this.value)">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed   top-0 start-50 translate-middle-x " style="z-index: 11; ">
+	<div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+
+		<div class="toast-body text-white bg-dark text-center">
+			Removed from Cart
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"
+				style="position:absolute; right: 0; "></button>
+		</div>
+	</div>
+</div>
+
+
+
+<section>
+    <div class="container">
+        <div class="row pt-5">
+            {{#if cartStatus}}
+            <table class="table table-responsive-sm  table-hover table-sm  pt-5" id="example">
+
+                <thead style="background-color: #206466; color:white    ">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {{#each products}}
+                    <tr id="row">
+                        <th scope="row">{{counter @index}}</th>
+                        <td>
+                            <img src="/images/{{this.product.image.[0]}}" alt="" style="width: 100px;">
+                            {{this.product.name}}
+                        </td>
+                        <td class="pt-5">{{this.product.category2}}</td>
+
+                        <td class="pt-5 ">
+                            {{#if this.product.offerPrice}}
+                            <button class="cart-item-count btn-sm " style="background-color: #206466; color:white"
+                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{this.product.name}}','{{this.product.offerPrice}}',-1)">-</button><span
+                                class="m-1" id="{{this.product._id}}">{{this.quantity}}</span><button
+                                class="cart-item-count btn-sm " style="background-color: #206466;color:white"
+                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{this.product.name}}','{{this.product.offerPrice}}',1)">+</button>
+                            {{else if this.product.categoryOffer}}
+                            <button class="cart-item-count btn-sm " style="background-color: #206466;color:white"
+                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{this.product.name}}','{{this.product.categoryOffer}}',-1)">-</button><span
+                                class="m-1" id="{{this.product._id}}">{{this.quantity}}</span><button
+                                class="cart-item-count btn-sm " style="background-color: #206466;color:white"
+                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{this.product.name}}','{{this.product.categoryOffer}}',1)">+</button>
+                            {{else}}
+                            <button class="cart-item-count btn-sm" style="background-color: #206466;color:white"
+                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{this.product.name}}','{{this.product.price}}',-1)">-</button><span
+                                class="m-1" id="{{this.product._id}}">{{this.quantity}}</span><button
+                                class="cart-item-count btn-sm " style="background-color: #206466;color:white"
+                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{this.product.name}}','{{this.product.price}}',1)">+</button>
+                            {{/if}}
+                        </td>
+
+
+                        {{#if this.product.offerPrice}}
+                        <td class="pt-5"><span><del>{{this.product.price}}</del><span
+                                    class="ml-1 text-success">{{this.product.offerPrice}}</span></span></td>
+                        {{else if this.product.categoryOffer}}
+                        <td class="pt-5"><span><del>{{this.product.price}}</del><span
+                                    class="ml-1 text-success">{{this.product.categoryOffer}}</span></span></td>
+                        {{else}}
+                        <td class="pt-5"><span>{{this.product.price}}</span></td>
+                        {{/if}}
+
+
+                        <td class="pt-5"><span id="{{this.product.name}}">{{this.total}}</span></td>
+
+
+                        <td class="pt-5"><button data-bs-toggle="modal" data-id="{{this.product._id}}"
+                                onclick="Remove('{{this.product._id}}')" class="submit_button btn btn-light"
+                                style="background-color: rgb(201, 81, 81); color:antiquewhite">Remove</button>
+                        </td>
+
+                        {{/each}}
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="float-right mb-2">
+            <hr>
+            <h4 id="total-amount">Total amount : <span id="total">{{total}}</span> </h4>
+            <hr>
+            <a href="/place-order" id="place-order">
+                <button class="btn btn-primary btn btn-lg" style="background-color: #003638;">Place Order</button>
+            </a>
+        </div>
+
+        {{else}}
+
+        <div class="col-md-12">
+            <div class="p-3">
+                <div class="">
+                    <h5></h5>
+                </div>
+                <div class="card-body cart">
+                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png"
+                            width="130" height="130" class="img-fluid mb-4 mr-3">
+                        <h3><strong>Your Cart is Empty</strong></h3>
+                        <h4>Add something to make me happy :)</h4> <a href="/products"
+                            class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue
+                            shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{/if}}
+
+
+    </div>
+
+</section>
+
+<script>
+
+    function changeQuantity(cartId, proId, name, price, count) {
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
+
+        count = parseInt(count)
+        $.ajax({
+            url: '/change-product-quantity',
+            type: 'POST',
+            data: {
+                cart: cartId,
+                product: proId,
+                count: count,
+                quantity: quantity
+            },
+            success: (response) => {
+                if (response.status) {
+
+                    if (quantity < 1) {
+                        $(".modal-footer #btn_remove").val(proId)
+                        $('#myModal').modal('show')
+                        document.getElementById('place-order').style.display = 'none'
+                        document.getElementById('total-amount').style.display = 'none'
+
+                    }
+                    else {
+
+                        document.getElementById(proId).innerHTML = quantity + count
+                        document.getElementById('total').innerHTML = response.total
+                        document.getElementById(name).innerHTML = (quantity + count) * price
+                    }
+                }
+
+
+            }
+        })
+    }
+
+
+</script>
+
+<script>
+    $(document).on("click", ".submit_button", function () {
+        var Id = $(this).data('id');
+        $(".modal-footer #btn_remove").val(Id)
+    })
+
+    function Remove(proId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to remove this product!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, cancel it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/remove-cart-product/' + proId,
+                    method: 'get',
+                    success: (response) => {
+
+                        if (response.status) {
+                            new bootstrap.Toast(document.querySelector('.toast')).show(); 
+
+
+                            window.location.reload()
+                        }
+
+                    }
+
+
+
+
+                })
+            }
+        })
+    }
+
+            function changeTotal(cartId, proId, count) {
+                $.ajax({
+                    url: '/change-product-total',
+                    data: {
+                        cartId: cartId,
+                        productId: proId,
+                        count: count
+                    },
+                    type: 'POST',
+                    success: (response) => {
+                        if (response.status) {
+
+                        }
+                    }
+
+                })
+            }
+
+</script>

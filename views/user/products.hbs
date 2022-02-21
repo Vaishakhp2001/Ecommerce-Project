@@ -1,0 +1,452 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="/stylesheets/product-sidebar.css">
+
+
+<style>
+	/*Pagination CSS*/
+	#page_navigation {
+		clear: both;
+		margin: 20px 0;
+
+	}
+
+	#page_navigation a {
+		padding: 3px 6px;
+		border: 1px solid #2e6da4;
+		margin: 2px;
+		color: black;
+		text-decoration: none
+	}
+
+	.active_page {
+		background: #337ab7;
+		color: white !important;
+	}
+
+	.grow img {
+		transition: 0.5s ease;
+	}
+
+	.grow img:hover {
+		-webkit-transform: scale(1.2);
+		-ms-transform: scale(1.2);
+		transform: scale(1.2);
+		transition: 0.5s ease;
+	}
+</style>
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom"> <a class="navbar-brand ml-2 font-weight-bold"
+		href="#"></a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor"
+		aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span> </button>
+	<div class="collapse navbar-collapse" id="navbarColor">
+		<ul class="navbar-nav">
+			<li class="nav-item "><a class="nav-link" href="/products/collection?main=Latest">Latest</a> </li>
+			<li class="nav-item"><a class="nav-link" href="/products/collection?main=Women">Women's</a> </li>
+			<li class="nav-item"><a class="nav-link" href="/products/collection?main=Men"
+					onclick="mensDress()">Men's</a> </li>
+			<li class="nav-item "><a class="nav-link" href="#">Sale</a> </li>
+		</ul>
+	</div>
+	</div>
+</nav>
+
+<div class="position-fixed   top-0 start-50 translate-middle-x " style="z-index: 11; ">
+	<div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+
+		<div class="toast-body text-white bg-dark text-center">
+			Added to cart
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"
+				style="position:absolute; right: 0; "></button>
+		</div>
+	</div>
+</div>
+
+
+<div class="position-fixed top-0 start-50 translate-middle-x p-3 " style="z-index: 11; ">
+	<div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+
+		<div class="toast-body text-white bg-dark text-center">
+			Added to Wishlist
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"
+				style="position:absolute; right: 0; "></button>
+		</div>
+	</div>
+</div>
+
+
+
+<body>
+	<div class="containe-fluid">
+		<div class="row" style="background-color: #f1f3f6;">
+
+			<div class="col-lg-3 col-12 mx-auto mt-5 bg-white">
+
+				{{!-- <section id="sidebar">
+					<div>
+						<h6 class="p-1 border-bottom">Categories</h6>
+						<ul>
+							{{#each category}}
+							<li><a href="/">{{this.Subcategory}}</a></li><br>
+
+							{{/each}}
+						</ul>
+					</div>
+
+				</section> --}}
+				{{!--
+				<div class="container-fluid mt-100">
+					<div class="row d-flex justify-content-center">
+						<div class="col-md-4"> --}}
+							<div class="card mt-3">
+								<form action="/products/price" method="post" id="formdsub">
+									<article class="filter-group">
+										<header class="card-header"> <a href="#" data-toggle="collapse"
+												data-target="#collapse_aside1" data-abc="true" aria-expanded="false"
+												class="collapsed"> <i class="icon-control fa fa-chevron-down"></i>
+												<h6 class="title">Categories </h6>
+											</a> </header>
+										<div class="filter-content collapse" id="collapse_aside1" style="">
+											<div class="card-body">
+												<ul class="list-menu">
+
+													{{#each allcategory}}
+
+													<li><input type="checkbox" name="sub" value="{{this}}"><a
+															href="/products/collection?sub={{this}}">{{this}}</a></li>
+
+													<br>
+
+													{{/each}}
+													{{#if category}}
+													{{#each category}}
+
+													<li><input type="checkbox" name="all"
+															value="{{this.category}} {{this.Subcategory}}">
+
+														<a
+															href="/products/collection?main={{this.category}}&sub={{this.Subcategory}}">{{this.Subcategory}}</a>
+													</li><br>
+
+
+													{{/each}}
+													{{/if}}
+
+
+												</ul>
+											</div>
+										</div>
+									</article>
+									<article class="filter-group">
+										<header class="card-header"> <a href="#" data-toggle="collapse"
+												data-target="#collapse_aside2" data-abc="true" aria-expanded="false"
+												class="collapsed"> <i class="icon-control fa fa-chevron-down"></i>
+												<h6 class="title">Price </h6>
+											</a> </header>
+										<div class="filter-content collapse" id="collapse_aside2" style="">
+											<div class="card-body">
+												<div class="form-row">
+													<div class="form-group col-md-6"> <label>Min</label> <input
+															class="form-control" id="min" placeholder="$0" type="number"
+															name="min"> </div>
+													<div class="form-group text-right col-md-6"> <label>Max</label>
+														<input class="form-control" id="max" placeholder="$1,0000"
+															name="max" type="number">
+													</div>
+												</div>
+												{{!-- <a
+													class="highlight-button btn btn-medium button xs-margin-bottom-five"
+													data-abc="true" type="submit">Apply Now</a> --}}
+												<div class="bg-info text-center">
+													<button type="submit" class="btn ">Apply Now</button>
+												</div>
+											</div>
+										</div>
+									</article>
+								</form>
+								{{!-- <article class="filter-group">
+									<header class="card-header"> <a href="#" data-toggle="collapse"
+											data-target="#collapse_aside3" data-abc="true" aria-expanded="false"
+											class="collapsed"> <i class="icon-control fa fa-chevron-down"></i>
+											<h6 class="title">Size </h6>
+										</a> </header>
+									<div class="filter-content collapse" id="collapse_aside3" style="">
+										<div class="card-body"> <label class="checkbox-btn"> <input type="checkbox">
+												<span class="btn btn-light"> XS </span> </label> <label
+												class="checkbox-btn"> <input type="checkbox"> <span
+													class="btn btn-light"> SM </span> </label> <label
+												class="checkbox-btn"> <input type="checkbox"> <span
+													class="btn btn-light"> LG </span> </label> <label
+												class="checkbox-btn"> <input type="checkbox"> <span
+													class="btn btn-light"> XXL </span> </label> </div>
+									</div>
+								</article> --}}
+								{{!-- <article class="filter-group">
+									<header class="card-header"> <a href="#" data-toggle="collapse"
+											data-target="#collapse_aside4" data-abc="true" class="collapsed"
+											aria-expanded="false"> <i class="icon-control fa fa-chevron-down"></i>
+											<h6 class="title">Rating </h6>
+										</a> </header>
+									<div class="filter-content collapse" id="collapse_aside4" style="">
+										<div class="card-body"> <label class="custom-control"> <input type="checkbox"
+													checked="" class="custom-control-input">
+												<div class="custom-control-label">Better </div>
+											</label> <label class="custom-control"> <input type="checkbox" checked=""
+													class="custom-control-input">
+												<div class="custom-control-label">Best </div>
+											</label> <label class="custom-control"> <input type="checkbox" checked=""
+													class="custom-control-input">
+												<div class="custom-control-label">Good</div>
+											</label> <label class="custom-control"> <input type="checkbox" checked=""
+													class="custom-control-input">
+												<div class="custom-control-label">Not good</div>
+											</label> </div>
+									</div>
+								</article> --}}
+							</div>
+							{{!--
+						</div>
+					</div>
+				</div> --}}
+
+
+
+			</div>
+
+			<!-- start main -->
+			<div class="col-lg-8 col-12 bg-white mx-auto mt-5">
+				<div class="">
+
+					<div class="container ">
+						<!-- start grids_of_3 -->
+						<div id="main-div1" class="row justify-content-center">
+							<input type='hidden' id='current_page' />
+							<input type='hidden' id='show_per_page' />
+
+							{{#if products}}
+							{{#each products}}
+							<div class="col-sm-4 col-lg-3 col-md-3 col-6  grow p-3 shadow m-4 rounded"
+								style="position: relative;">
+								<a>
+									<a href="/product_details/{{this._id}}"><img src="/images/{{this.image.[0]}}"
+											alt="" />
+										<a onclick="wishlist('{{this._id}}')"><i
+												class="fa fa-heart position-absolute top-0 end-0 m-3" id="{{this._id}}"
+												style="color: #e7edee;"></i></a></a>
+									<h3 class="text-secondary mt-4" style="font-size: 16px;">{{this.name}}</h3>
+									<div class="mt-2">
+										{{#if this.offerPrice}}
+										<h6>₹<del>{{this.price}}</del><span
+												class="text-success ml-2">₹{{this.offerPrice}}</span></h6><br>
+										{{else if this.categoryOffer}}
+										<h6>₹<del>{{this.price}}</del><span
+												class="text-success ml-2">₹{{this.categoryOffer}}</span></h6><br>
+										{{else}}
+										<h6>₹{{this.price}}</h6><br>
+										{{/if}}
+
+										<button onclick="addToCart('{{this._id}}')" id="btn"
+											class="text-white btn-sm mb-2 ml-3"
+											style="background-color: #43c395; border-color: rgb(67 195 149); position:absolute; bottom:0; left: 0;">Add
+											to cart</button>
+									</div>
+									<span class=""></span>
+								</a>
+							</div>
+
+							{{/each}}
+							{{else}}
+
+							<div class="container">
+								<div class="row ">
+									<div class="text-center">
+										<img src="/images/no_result.png" style="width: 300px; " alt="">
+									</div>
+								</div>
+							</div>
+
+
+							{{/if}}
+
+
+
+
+
+
+						</div>
+
+						<div class="mt-5">
+
+						</div>
+
+
+						<div id='page_navigation' class="position-absolute bottom-0 start-50 translate-middle-x"></div>
+
+
+
+
+						<div class="clear"></div>
+					</div>
+					<!-- end grids_of_3 -->
+				</div>
+			</div>
+		</div>
+
+</body>
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+<script>
+
+	//pagination	
+
+	$(document).ready(function () {
+
+		//Pagination JS
+		//how much items per page to show
+		var show_per_page = 8;
+		//getting the amount of elements inside main-div div
+		var number_of_items = $('#main-div1').children().size();
+		console.log("total", number_of_items)
+		//calculate the number of pages we are going to have
+		var number_of_pages = Math.ceil(number_of_items / show_per_page);
+
+		//set the value of our hidden input fields
+		$('#current_page').val(0);
+		$('#show_per_page').val(show_per_page);
+
+		//now when we got all we need for the navigation let's make it '
+
+		/* 
+		what are we going to have in the navigation?
+			- link to previous page
+			- links to specific pages
+			- link to next page
+		*/
+		var navigation_html = '<a class="previous_link" href="javascript:previous();">Prev</a>';
+		var current_link = 0;
+		while (number_of_pages > current_link) {
+			navigation_html += '<a class="page_link" href="javascript:go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+			current_link++;
+		}
+		navigation_html += '<a class="next_link" href="javascript:next();">Next</a>';
+
+		$('#page_navigation').html(navigation_html);
+
+		//add active_page class to the first page link
+		$('#page_navigation .page_link:first').addClass('active_page');
+
+		//hide all the elements inside main-div div
+		$('#main-div1').children().css('display', 'none');
+
+		//and show the first n (show_per_page) elements
+		$('#main-div1').children().slice(0, show_per_page).css('display', 'block');
+
+	});
+
+	function previous() {
+
+		new_page = parseInt($('#current_page').val()) - 1;
+		//if there is an item before the current active link run the function
+		if ($('.active_page').prev('.page_link').length == true) {
+			go_to_page(new_page);
+		}
+
+	}
+
+	function next() {
+
+		new_page = parseInt($('#current_page').val()) + 1;
+		//if there is an item after the current active link run the function
+		if ($('.active_page').next('.page_link').length == true) {
+			go_to_page(new_page);
+		}
+
+	}
+	function go_to_page(page_num) {
+		//get the number of items shown per page
+		var show_per_page = parseInt($('#show_per_page').val());
+
+		//get the element number where to start the slice from
+		start_from = page_num * show_per_page;
+
+		//get the element number where to end the slice
+		end_on = start_from + show_per_page;
+
+		//hide all children elements of main-div div, get specific items and show them
+		$('#main-div1').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+
+		/*get the page link that has longdesc attribute of the current page and add active_page class to it
+		and remove that class from previously active page link*/
+		$('.page_link[longdesc=' + page_num + ']').addClass('active_page').siblings('.active_page').removeClass('active_page');
+
+		//update the current page input field
+		$('#current_page').val(page_num);
+	}
+
+
+
+	function addToCart(proId) {
+		console.log(proId)
+		$.ajax({
+			url: '/add-to-cart?id=' + proId,
+			method: 'get',
+			async: false,
+			success: (response) => {
+				if (response.status) {
+					var count = 0
+					count = $("#cart-count").html()
+					count = parseInt(count) + 1
+					console.log(count)
+					$("#cart-count").html(count)
+					new bootstrap.Toast(document.querySelector('.toast')).show();
+
+
+				}
+				else if (response.noUser) {
+					location.href = '/login'
+				}
+
+			}
+		})
+	}
+
+	function wishlist(Id) {
+		$.ajax({
+			url: '/add-to-wishlist/' + Id,
+			method: 'get',
+			success: (response) => {
+				if (response.status) {
+					document.getElementById(Id).style.color = '#ff0000'
+					new bootstrap.Toast(document.querySelector('#liveToast')).show();
+				}
+			}
+		})
+
+	}
+
+	function getPriceProducts() {
+		min = document.getElementById('min').value
+		max = document.getElementById('max').value
+		console.log(min, max)
+		$.ajax({
+			url: '/products/price?min=' + min + '&max=' + max,
+			method: 'get',
+			success: () => {
+
+
+			}
+		})
+
+	}
+
+
+
+
+</script>

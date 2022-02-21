@@ -1,0 +1,262 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.1/css/bootstrap.min.css" />
+
+<section>
+    <div class="container">
+        <form action="/admin/add-product" class="row g-3 mx-auto mt-3 col-md-12 col-sm-12 col-12" style="width: 700px;"
+            enctype="multipart/form-data" method="post" id="formdsub">
+            <h2 class="text-center fw-bold">Add Product</h2>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Product Name</label>
+                <input type="text" name="name" class="form-control" id="inputEmail4">
+            </div>
+            <div class="col-md-4">
+                <label for="inputPassword4" class="form-label">Price</label>
+                <input type="text" name="price" id="price" class="form-control" placeholder="RS:">
+            </div>
+
+            <div class="col-md-5">
+                <label for="inputState" class="form-label">Category</label>
+                <select id="inputState" class="form-select" name="category1">
+                    {{#each categories}}
+                    <option>{{this.category}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="col-md-5">
+                <label for="inputState" class="form-label">Subcategory</label>
+                <select id="inputState" class="form-select" name="category2">
+                    {{#each Subcategory}}
+                    <option>{{this.Subcategory}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+
+
+            <div class="col-7">
+                <label for="inputAddress" class="form-label">Description</label>
+                <input type="text" class="form-control" id="inputAddress" name="description">
+            </div>
+
+            <div class="col-md-3">
+                <label for="inputPassword4" class="form-label">Count </label>
+                <input type="number" min="0" name="count" class="form-control" id="inputBox">
+            </div>
+
+            <input type="hidden" name="status" value="active" id="status">
+
+            <div class="mb-3 col-10">
+                <label for="formFile" class="form-label">Image</label>
+                <img src="" alt="" id="imageId1" style="width:50px" class="mb-2">
+                <input class="form-control" type="file" id="file-input" accept="image/*" name="image">
+            </div>
+
+          
+
+            <div class="box-2">
+                <div class="result"></div>
+            </div>
+
+            <!--rightbox-->
+            <div class="box-2 img-result hide">
+                <!-- result of crop -->
+                <img class="cropped" src="" alt="" />
+            </div>
+
+            <!-- input file -->
+            <div class="box">
+                <div class="options hide">
+                    <label> Width</label>
+                    <input type="number" class="img-w" value="300" min="100" max="1200" />
+                </div>
+                <!-- save btn -->
+                <button class="btn save hide">Save</button>
+               
+            </div>
+
+
+            <div class="mb-3 col-10">
+                <label for="formFile" class="form-label">Image</label>
+                <img src="" alt="" id="imageId2" style="width:50px" class="mb-2">
+                <input class="form-control" type="file" id="formFile2" accept="image/*" name="image">
+
+            </div>
+            <div class="mb-3 col-10">
+                <label for="formFile" class="form-label">Image</label>
+                <img src="" alt="" id="imageId3" style="width:50px" class="mb-2">
+                <input class="form-control" type="file" id="formFile3" accept="image/*" name="image">
+
+            </div>
+            <div class="mb-3 col-10">
+                <label for="formFile4" class="form-label">Image</label>
+                <img src="" alt="" id="imageId4" style="width:50px" class="mb-2">
+                <input class="form-control" type="file" id="formFile4" accept="image/*" name="image">
+
+            </div>
+
+
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-lg">Add Product</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+
+
+
+<style>
+    .page {
+        margin: 1em auto;
+        max-width: 768px;
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        height: 100%;
+    }
+
+    .box {
+        padding: 0.5em;
+        width: 100%;
+        margin: 0.5em;
+    }
+
+    .box-2 {
+        padding: 0.5em;
+        width: calc(100% / 2 - 1em);
+    }
+
+    .options label,
+    .options input {
+        width: 4em;
+        padding: 0.5em 1em;
+    }
+
+    .btn {
+        background: white;
+        color: black;
+        border: 1px solid black;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        margin: 0.8em 0.3em;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    img {
+        max-width: 100%;
+    }
+</style>
+
+
+
+<script>
+
+
+    { { !--cropper --} }
+
+    let result = document.querySelector(".result"),
+        img_result = document.querySelector(".img-result"),
+        img_w = document.querySelector(".img-w"),
+        img_h = document.querySelector(".img-h"),
+        options = document.querySelector(".options"),
+        save = document.querySelector(".save"),
+        cropped = document.querySelector(".cropped"),
+        dwn = document.querySelector(".download"),
+        upload = document.querySelector("#file-input"),
+        cropper = "";
+
+    // on change show image with crop options
+    upload.addEventListener("change", (e) => {
+        if (e.target.files.length) {
+            // start file reader
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target.result) {
+                    // create new image
+                    let img = document.createElement("img");
+                    img.id = "image";
+                    img.src = e.target.result;
+                    // clean result before
+                    result.innerHTML = "";
+                    // append new image
+                    result.appendChild(img);
+                    // show save btn and options
+                    save.classList.remove("hide");
+                    options.classList.remove("hide");
+                    // init cropper
+                    cropper = new Cropper(img);
+                }
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    // save on click
+    save.addEventListener("click", (e) => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = cropper
+            .getCroppedCanvas({
+                width: img_w.value, // input value
+            })
+            .toDataURL();
+        // remove hide class of img
+        cropped.classList.remove("hide");
+        img_result.classList.remove("hide");
+        // show image cropped
+        cropped.src = imgSrc;
+        dwn.classList.remove("hide");
+        dwn.download = "imagename.png";
+        dwn.setAttribute("href", imgSrc);
+    });
+
+
+
+
+
+
+    var inputBox = document.getElementById("inputBox");
+
+    var invalidChars = [
+        "-",
+        "+",
+        "e",
+    ];
+
+    inputBox.addEventListener("keypress", function (e) {
+        if (invalidChars.includes(e.key)) {
+            e.preventDefault();
+        }
+    });
+
+
+
+
+    $(document).ready(function () {
+        $("#price").keypress(function (e) {
+            var keyCode = e.which;
+
+            if ((keyCode != 8 || keyCode == 32) && (keyCode < 48 || keyCode > 57)) {
+                return false;
+            }
+        });
+
+
+
+    });
+
+
+
+
+
+
+</script>

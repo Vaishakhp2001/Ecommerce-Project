@@ -1,0 +1,60 @@
+<section>
+  <div class="container">
+    <div class="btn mt-5">
+
+    </div>
+    <table id="example" class="table mt-2 border border-primary">
+      <thead class="bg-primary">
+        <tr>
+
+          <th scope="col">Date</th>
+          <th scope="col">Price</th>
+          <th scope="col">Payment</th>
+          <th scope="col">Status</th>
+          <th></th>
+
+
+        </tr>
+      </thead>
+      <tbody>
+
+        {{#each orders}}
+
+        <tr id="{{this._id}}">
+
+
+          <td>{{this.Date}}</td>
+          <td>{{this.Total}}</td>
+          <td>{{this.deliveryDetails.Payment}}</td>
+          <td>{{this.Status}}</td>
+          <td>
+            <button class="btn btn-danger"  onclick="cancelOrder('{{this._id}}')">Cancel order</button>
+          </td>
+
+        </tr>
+
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  function cancelOrder(Id) {
+    console.log('funciton')
+    $.ajax({
+      url: '/admin/cancel-order/'+Id,
+      method: 'get',
+      success: (response) => {
+        if (response.status) {
+          console.log("success")
+          document.getElementById(Id).style.display = 'none'
+
+        }
+      }
+
+    })
+
+
+  }
+</script>

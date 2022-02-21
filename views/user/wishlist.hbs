@@ -1,0 +1,204 @@
+<style>
+    #drawer {
+        display: none;
+    }
+
+   
+
+    @media screen and (max-width: 768px) {
+        #drawer {
+            display: inline-block;
+            float: right;
+        }
+
+        nav ul{
+            display: none;
+            float: none;
+            padding-top: 120px;
+            /* Hamburger icon is in the header on the right side, and nav expands vertically in the center of the screen below the hamburger icon, that's why I put the padding 120px, to make nav below the icon*/
+            text-align: center;
+        }
+
+        nav li {
+            float: none;
+        }
+
+        nav li a {
+            display: inline-block;
+            
+        }
+    }
+
+    .display {
+        display: block;
+    }
+</style>
+
+<div class="container">
+    <div class="row" style="background-color: #e3e7ee;">
+        <div class="col-lg-3 col-12  bg-white mt-5 mx-auto mb-5">
+            <div id="sidebar" class="text-white">
+                <img style="width: 50px;" id="drawer" src="/images/Hamburger_icon.svg.png" alt="">
+                <nav>
+                    <ul class="side mt-2">
+                        <li class="active"> <a href="/profile" class="text-decoration-none d-flex align-items-start">
+                                <div class="fas fa-box pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">My Account</div>
+                                    
+                                </div>
+                            </a> </li>
+                        <hr class="text-primary">
+                        <li> <a href="/orders" class="text-decoration-none d-flex align-items-start">
+                                <div class="fas fa-box-open pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">My Orders</div>
+                                   
+                                </div>
+                            </a> </li>
+                        <hr class="text-primary">
+                        <li> <a href="/address" class="text-decoration-none d-flex align-items-start">
+                                <div class="far fa-address-book pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">Address Book</div>
+                                    
+                                </div>
+                            </a> </li>
+                        <hr class="text-primary">
+                        <li> <a href="/wishlist" class="text-decoration-none d-flex align-items-start">
+                                <div class="far fa-user pt-2 me-3"></div>
+                                <div class="d-flex flex-column">
+                                    <div class="link">My Wishlist</div>
+                                    
+                                </div>
+                            </a> </li>
+                        <hr class="text-primary">
+                       
+                       
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="col-lg-8 col-12 mx-auto bg-white mt-5 mb-5">
+
+            <div class="position-fixed bottom-0 start-50 translate-middle-x p-3 " style="z-index: 11; ">
+                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+
+                    <div class="toast-body text-white bg-dark text-center">
+                        Removed from Wishlist
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"
+                            aria-label="Close" style="position:absolute; right: 0; "></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="card mt-2">
+                <h5 class="ml-2 p-3">My Wishlist()</h5>
+            </div>
+            {{#each wishlist}}
+            <div class="card mt-2 container" id="{{this.product._id}}">
+                <a href="/product_details/{{this.product._id}}" style="text-decoration: none;">
+                    <div class="card-body row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-6 ">
+                            <img src="/images/{{this.product.image.[0]}}" style="width:100px;" alt="">
+                        </div>
+                        <div class="col-lg-4 col-md-2 col-sm-4 col-6">
+                            <h5 class="text-secondary">{{this.product.name}}</h5><br>
+                            <span style="text-decoration: none;">
+                                <h3>₹{{this.product.price}}</h3>
+                            </span><br>
+                            {{this.product.description}}
+
+                        </div>
+
+                    </div>
+                </a>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-1 position-absolute top-50 end-0 translate-middle-y ">
+                    <a href="#" onclick="return deleteWishlist('{{this.product._id}}')"><i class="bi bi-trash"></i></a>
+                    {{!-- <a onclick="return delete('{{this.product._id}}')" href="#" class="btn btn-danger"
+                        id="{{this.product.name}}">Delete</a> --}}
+                </div>
+            </div>
+
+            <div>
+
+            </div>
+            {{/each}}
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteWishlist(Id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to cancel this order!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, cancel it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: '/delete-wishlist/' + Id,
+                    method: 'get',
+                    success: (response) => {
+
+                        if (response.status) {
+
+                            new bootstrap.Toast(document.querySelector('.toast')).show();
+                            document.getElementById(Id).style.display = 'none'
+
+                        }
+
+                    }
+
+                })
+
+            }
+
+
+        })
+
+
+        return false;
+    }
+     $('#drawer').click(function() {
+            $('nav .side').toggleClass('display');
+
+            if( $(this).text() == 'Hide' ) {
+
+                $(this).text('Show');
+
+            } else {
+                $(this).text('Hide');
+
+            }
+        });
+</script>

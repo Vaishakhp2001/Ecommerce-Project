@@ -1,0 +1,257 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+<!-- start slider -->
+
+{{!-- modal --}}
+{{!-- <div class="modal fade" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-body text-center">
+				<h2>Product Added successfully</h2>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<button type="button" class="col-md-3 btn btn-primary btn-lg" data-bs-dismiss="modal">Ok</button>
+
+			</div>
+		</div>
+	</div>
+</div> --}}
+
+<style>
+	.grow img {
+		transition: 0.5s ease;
+	}
+
+	.grow img:hover {
+		-webkit-transform: scale(1.2);
+		-ms-transform: scale(1.2);
+		transform: scale(1.2);
+		transition: 0.5s ease;
+	}
+</style>
+<div class="col-7">
+	<div class="position-fixed   top-0 start-50 translate-middle-x " style="z-index: 11; ">
+		<div  class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+
+			<div class="toast-body text-white bg-dark text-center">
+				Added to cart
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"
+					style="position:absolute; right: 0; "></button>
+			</div>
+		</div>
+	</div>
+
+	<div class="position-fixed top-0 start-50 translate-middle-x p-3 " style="z-index: 11; ">
+	<div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+
+		<div class="toast-body text-white bg-dark text-center">
+			Added to Wishlist
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"
+				style="position:absolute; right: 0; "></button>
+		</div>
+	</div>
+</div>
+</div>
+
+{{!-- slide bar --}}
+
+
+
+<div id="da-slider" class="da-slider" style="overflow-y: hidden;">
+	{{#each banner}}
+	<div class="da-slide">
+		<h2>welcome to aditii</h2>
+		<p>{{this.description}}</p>
+
+		<a href="/products" class="da-link">shop now</a>
+
+		<div class="da-img"><img class="" src="/images/{{this.image}}" style="height min-height: 300px; min-height:200px;" /></div>
+	</div>
+	<nav class="da-arrows">
+		<span class="da-arrows-prev"></span>
+		<span class="da-arrows-next"></span>
+	</nav>
+	{{/each}}
+</div>
+
+<!----start-cursual---->
+<div class="wrap">
+	<!----start-img-cursual---->
+	<div id="owl-demo" class="owl-carousel">
+		{{#each products}}
+		<div class="item">
+			<div class="cau_left">
+				<a href="/products"><img class="lazyOwl vh-50" data-src="/images/{{this.image.[0]}}"
+						alt="Lazy Owl Image">
+			</div>
+			<div class="cau_left">
+				<h4><a href="details.html"></a></h4>
+
+			</div>
+		</div>
+		{{/each}}
+	</div>
+</div>
+{{!--
+</div>
+<div class="item" onclick="location.href='details.html';">
+	<div class="cau_left">
+		<img class="lazyOwl" data-src="/images/images/c2.jpg" alt="Lazy Owl Image">
+	</div>
+	<div class="cau_left">
+		<h4><a href="details.html">branded tees</a></h4>
+		<a href="details.html" class="btn">shop</a>
+	</div>
+</div>
+<div class="item" onclick="location.href='details.html';">
+	<div class="cau_left">
+		<img class="lazyOwl" data-src="/images/images/c3.jpg" alt="Lazy Owl Image">
+	</div>
+	<div class="cau_left">
+		<h4><a href="details.html">branded jeens</a></h4>
+		<a href="details.html" class="btn">shop</a>
+	</div>
+</div>
+<div class="item" onclick="location.href='details.html';">
+	<div class="cau_left">
+		<img class="lazyOwl" data-src="/images/images/c2.jpg" alt="Lazy Owl Image">
+	</div>
+	<div class="cau_left">
+		<h4><a href="details.html">branded tees</a></h4>
+		<a href="details.html" class="btn">shop</a>
+	</div>
+</div>
+<div class="item" onclick="location.href='details.html';">
+	<div class="cau_left">
+		<img class="lazyOwl" data-src="/images/images/c1.jpg" alt="Lazy Owl Image">
+	</div>
+	<div class="cau_left">
+		<h4><a href="details.html">branded shoes</a></h4>
+		<a href="details.html" class="btn">shop</a>
+	</div>
+</div>
+<div class="item" onclick="location.href='details.html';">
+	<div class="cau_left">
+		<img class="lazyOwl" data-src="/images/slider1.png" alt="Lazy Owl Image">
+	</div>
+	<div class="cau_left">
+		<h4><a href="details.html">branded tees</a></h4>
+		<a href="details.html" class="btn">shop</a>
+	</div>
+</div>
+<div class="item" onclick="location.href='details.html';">
+	<div class="cau_left">
+		<img class="lazyOwl" data-src="/images/images/c3.jpg" alt="Lazy Owl Image">
+	</div>
+	<div class="cau_left">
+		<h4><a href="details.html">branded jeens</a></h4>
+		<a href="details.html" class="btn">shop</a>
+	</div>
+</div> --}}
+<!----//End-img-cursual---->
+<!-- start main1 -->
+<div class="main_bg1">
+	<div class="wrap">
+		<div class="main1">
+			<h2>featured products</h2>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid" style="background-color: #f1f3f6;">
+	<div class="row p-2 justify-content-center">
+		<!-- start grids_of_3 -->
+
+		{{#each products}}
+		<div class="col-sm-4 col-lg-2 col-md-3 col-6  grow p-3 shadow m-4 rounded" style="position: relative;">
+			<a>
+				<a href="/product_details/{{this._id}}"><img src="/images/{{this.image.[0]}}" alt=""/>
+				<a onclick="wishlist('{{this._id}}')"><i class="fa fa-heart position-absolute top-0 end-0 m-3" id="{{this._id}}" style="color: #e7edee;"></i></a></a>
+				<h3 class="text-secondary mt-4" style="font-size: 16px;">{{this.name}}</h3>
+				<div class="mt-2">
+					{{#if this.offerPrice}}
+					<h6>₹<del>{{this.price}}</del><span class="text-success ml-2">₹{{this.offerPrice}}</span></h6><br>
+					{{else if  this.categoryOffer}}
+					<h6>₹<del>{{this.price}}</del><span class="text-success ml-2">₹{{this.categoryOffer}}</span></h6><br>
+					{{else}}
+					<h6>₹{{this.price}}</h6><br>
+					{{/if}}
+					
+					<button onclick="addToCart('{{this._id}}')" id="btn" class="text-white btn-sm mb-2 ml-3"
+						style="background-color: #43c395; border-color: rgb(67 195 149); position:absolute; bottom:0; left: 0;">Add
+						to cart</button>
+				</div>	
+				<span class=""></span>
+			</a>
+		</div>
+		{{/each}}
+
+
+		<div class=""></div>
+		
+
+
+	</div>
+</div>
+
+
+</body>
+
+</html>
+
+<script>
+
+
+
+	function addToCart(proId) {
+
+		$.ajax({
+			url: '/add-to-cart?id=' + proId,
+			method: 'get',
+			async: false,
+			success: (response) => {
+				if (response.status) {
+
+					var count = 0
+					count = $("#cart-count").html()
+					count = parseInt(count) + 1
+					console.log(count)
+					$("#cart-count").html(count)
+					new bootstrap.Toast(document.querySelector('.toast')).show();
+
+
+				}
+				else if (response.noUser) {
+					location.href = '/login'
+				}
+
+			}
+		})
+	}
+
+	function wishlist(Id) {
+		$.ajax({
+			url: '/add-to-wishlist/' + Id,
+			method: 'get',
+			success: (response) => {
+				if (response.status) {
+					var wishlist = document.getElementById(Id)
+					if(wishlist.style.color === "#ff0000"){
+						wishlist.style.color = "#e7edee"
+					}
+					else{
+						wishlist.style.color = "#ff0000"
+					}
+					new bootstrap.Toast(document.querySelector('#liveToast')).show();
+				}
+			}
+		})
+
+	}
+</script>

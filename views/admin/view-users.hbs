@@ -1,0 +1,45 @@
+<section>
+  <div class="container">
+    <div class="btn mt-5">
+
+    </div>
+    <table class="table mt-2 border border-primary" id="example">
+      <thead class="bg-primary">
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone no.</th>
+          <th scope="col">Address</th>
+          <th scope="col">Options</th>
+
+        </tr>
+      </thead>
+      <tbody>
+
+        {{#each Users}}
+
+        <tr id="row-id">
+          <th scope="row">{{counter @index}}</th>
+          <td>{{this.firstname}}</td>
+          <td>{{this.email}}</td>
+          <td>{{this.phone}}</td>
+          <td>{{this.address}}</td>
+
+          <td>
+
+            {{#if this.status}}
+            <a href="/admin/block-user/{{this._id}}"><button class="btn btn-danger">Block</button></a>
+            {{else}}
+            <a href="/admin/unblock-user/{{this._id}}"><button class="btn btn-success">Unblock</button></a>
+            {{/if}}
+            </button></a>
+
+          </td>
+        </tr>
+
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>

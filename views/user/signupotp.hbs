@@ -1,0 +1,59 @@
+<form action="/signupotp" id="formdsub" class="row g-3" method="post">
+  <div class="container">
+    <div class="col-lg-7  mx-auto p-5  shadow mt-5 col-12">
+      <h4 class="text-center text-dark">Enter OTP</h4>
+      <div class="col-auto mt-4">
+        {{#if msg}}
+        <p class="text-danger text-center">{{msg}}</p>
+        {{/if}}
+        {{#if error}}
+         <p class="text-danger text-center">{{error}}</p>
+         {{/if}}
+        {{!-- <input type="hidden" name="phonenumber"> --}}
+        <input type="hidden" name="channel" value="sms">
+        <input type="number" class="form-control" name="code" id="code" placeholder="OTP">
+      </div>
+      <div>
+        <div id="countdown"></div>
+      </div>
+      <div class="col-auto p-3 text-center mt-3">
+        <button type="submit" id="submit" class="btn btn-primary mb-3">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+  var button = document.getElementById('submit')
+
+  var timeleft = 20;
+  var downloadTimer = setInterval(function () {
+    if (timeleft <= 0) {
+      clearInterval(downloadTimer);
+      document.getElementById("countdown").innerHTML = "OTP Timeout";
+      document.getElementById("submit").innerHTML = "Resend otp"
+      button.addEventListener("click",event=>{
+        event.preventDefault()
+        location.href = '/resend-otp'
+      })
+      
+    } else {
+      document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+    }
+    timeleft -= 1;
+  }, 1000);
+
+
+  var code = document.getElementById("code");
+
+  var invalidChars = [
+    "-",
+    "+",
+    "e",
+  ];
+
+  code.addEventListener("keypress", function (e) {
+    if (invalidChars.includes(e.key)) {
+      e.preventDefault();
+    }
+  });
+</script>

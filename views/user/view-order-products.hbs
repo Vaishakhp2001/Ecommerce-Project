@@ -1,0 +1,38 @@
+<section>
+    <div class="container">
+        <div class="row p-3 text-center justify-content-center">
+            <h4 class="text-bold">Order Products</h4>
+
+            {{#each products}}
+            <div class="card mt-4 shadow ml-5" style="width: 12rem;">
+                <img src="/images/{{this.Product.image.[0]}}" class="card-img-top" alt="...">
+                <div class="card-body row">
+                    <h5 class="card-title text-primary fs-5">{{this.Product.name}}</h5>
+                    {{#if this.Product.offerPrice}}
+                    <h6>₹{{this.Product.offerPrice}}</h6>
+                    {{else if this.Product.categoryOffer}}
+                    <h6>₹{{this.Product.categoryOffer}}</h6>
+                    {{else}}
+                    <h6>₹{{this.Product.price}}</h6>
+                    {{/if}}
+                    <p class="card-text">{{this.Product.description}}</p>
+
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        Swal.fire(
+            'Order Placed Successfully!',
+            '',
+            'success'
+        )
+    })
+
+
+</script>

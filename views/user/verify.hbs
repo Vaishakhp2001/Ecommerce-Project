@@ -1,0 +1,43 @@
+<form action="/verify" id="formdsub" class="row g-3" method="get">
+  <div class="container">
+    <div class="w-50  mx-auto p-5 border border-primary mt-5 shadow">
+      <h4 class="text-center text-dark">Enter OTP</h4>
+      <div class="col-auto mt-4">
+        {{#if error}}
+        <p class="alert-danger text-center">{{error}}</p>
+        {{/if}}
+        <input type="hidden" name="channel" value="sms">
+        <input type="number" class="form-control" name="code" id="code" placeholder="OTP">
+        </script>
+        <div>
+          <div id="countdown"></div>
+        </div>
+      </div>
+      <div class="col-auto p-3 text-center mt-3">
+        <button type="submit" class="btn btn-primary mb-3" id="submit" >Submit</button>
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+  var button = document.getElementById('submit')
+
+  var timeleft = 20;
+  var downloadTimer = setInterval(function () {
+    if (timeleft <= 0) {
+      clearInterval(downloadTimer);
+      document.getElementById("countdown").innerHTML = "OTP Timeout";
+      document.getElementById("submit").innerHTML = "Resend otp"
+      button.addEventListener("click",event=>{
+        event.preventDefault()
+        location.href = '/resend-otp'
+      })
+      
+    } else {
+      document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+    }
+    timeleft -= 1;
+  }, 1000);
+
+
+</script>

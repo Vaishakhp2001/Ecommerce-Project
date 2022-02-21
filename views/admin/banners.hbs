@@ -1,0 +1,53 @@
+<section>
+    <div class="container ">
+        <div class="btn mt-5">
+            <a href="/admin/add-banner" class="btn btn-primary my-auto ">Add Banners</a>
+        </div>
+<table id="example" class="table mt-2 border border-primary">
+  <thead class="bg-primary">
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Content</th>
+      <th scope="col">Image</th>
+      <th></th>
+      
+  
+    </tr>
+  </thead>
+  <tbody>
+    
+      {{#each banners}}
+        
+    <tr id="{{this._id}}">
+      <th scope="row">{{counter @index}}</th>
+    
+      <td>{{this.description}}</td>
+      <td><img style="width: 200px;" src="/images/{{this.image}}" alt=""></td>
+      <td>
+          <a  href="/admin/edit-banner/{{this._id}}"><button  class="btn btn-primary">Edit</button></a>
+          <button onclick="deleteBanner('{{this._id}}')" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+    {{/each}}
+
+  </tbody>
+</table>
+</div>
+</section>
+
+<script>
+  function deleteBanner(Id) {
+		console.log(Id)
+		$.ajax({
+			url: '/admin/delete-banner/'+ Id,
+			method: 'get',
+			async: false,
+			success: (response) => {
+				if (response.status) {
+          document.getElementById(Id).innerHTML = null
+        }
+      }
+
+    })
+  }
+</script>

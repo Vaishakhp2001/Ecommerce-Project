@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-lg-6 mt-5 text-center">
+            <h4>COUPON OFFER</h4>
+            <form action="/admin/add-coupon-offer" method="post">
+            <div class="mb-3 mt-3">
+
+                <label for="formGroupExampleInput" class="form-label">ENTER COUPON CODE</label>
+                {{#if Exists}}
+                <p class="alert alert-danger">{{Exists}}</p>
+                {{/if}}
+                <input type="text" class="form-control" name="coupon" id="formGroupExampleInput"
+                    placeholder="coupon code">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="formGroupExampleInput" class="form-label">OFFER PERCENTAGE %</label>
+                <input type="text" class="form-control" name="discount" id="formGroupExampleInput"
+                    placeholder="%">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="formGroupExampleInput2" class="form-label">OFFER START DATE</label>
+                <input type="date" class="form-control" name="start_date" id="formGroupExampleInput2"
+                    >
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="formGroupExampleInput2" class="form-label">OFFER END DATE</label>
+                <input type="date" class="form-control" name="end_date" id="formGroupExampleInput2"
+                    >
+            </div>
+            <div class="mb-3 mt-3">
+                
+                    <button type="submit" class="btn btn-primary">SUBMIT</button>
+
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

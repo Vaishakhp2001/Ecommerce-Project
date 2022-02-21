@@ -1,0 +1,960 @@
+							<div class="physicianBox col-sm-4 col-6  col-md-3 p-3 shadow m-4 rounded grow">
+								<a href="/product_details/{{this._id}}">
+									<img src="/images/{{this.image.[0]}}" alt="" />
+									<a onclick="wishlist('{{this._id}}')"><i id="{{this._id}}"
+											class="fas fa-heart position-absolute top-0 end-0 m-3"
+											style="color: mintcream;"></i></a>
+
+									<h2 class=" text-secondary mt-2" style="font-size: 16px;">{{this.name}}</h2>
+
+									{{!-- <h6 class="mt-2">{{this.description}}</h6> --}}
+									<div class="">
+										{{#if this.offerPrice}}
+										<h6>₹<del>{{this.price}}</del><span
+												class="text-success ml-2">₹{{this.offerPrice}}</span></h6>
+										{{else if this.categoryOffer}}
+										<h6>₹<del>{{this.price}}</del><span
+												class="text-success ml-2">₹{{this.categoryOffer}}</span></h6><br>
+										{{else}}
+										<h6>₹{{this.price}}</h6>
+										{{/if}}
+									</div>
+									<span class=""></span>
+								</a>
+								<div class="mt-4">
+									<button onclick="addToCart('{{this._id}}')" class="text-white btn-sm ml-3 mb-2"
+										style="background-color: rgb(67 195 149); border-color: rgb(67 195 149); position: absolute; bottom:0; left:0">Add
+										to cart</button>
+								</div>
+							</div>
+
+
+
+
+{{!-- <!DOCTYPE html>
+<html>
+    <head>
+       
+        <style>
+            #drawer {
+                display: none;
+            }
+
+            header nav {
+                float: right;
+            }
+
+            nav li {
+                float: left;
+            }
+
+            @media screen and (max-width: 768px) {
+                #drawer {
+                    display: inline-block;
+                    float: right;
+                }
+
+                header nav {
+                    display: none;
+                    float: none;
+                    padding-top: 120px; /* Hamburger icon is in the header on the right side, and nav expands vertically in the center of the screen below the hamburger icon, that's why I put the padding 120px, to make nav below the icon*/
+                    text-align: center;
+                }
+
+                nav li {
+                    float: none;
+                }  
+
+                nav li a {
+                    display: inline-block;
+                    margin-left: 0px;
+                    margin-top: 10px;
+                }
+            }
+
+            .display {
+                display: block;
+            }
+        </style>
+    </head>
+<body>
+    <header>
+    <img id="drawer" alt="Drawer">
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="tutorials.html">Tutorials</a></li>
+        </ul>
+    </nav>
+    </header>
+    <script>
+        $('#drawer').click(function() {
+            $('header nav').toggleClass('display');
+
+            if( $(this).text() == 'Hide' ) {
+
+                $(this).text('Show');
+
+            } else {
+                $(this).text('Hide');
+
+            }
+        });
+    </script>
+</body>
+</html>
+ --}}
+
+
+
+
+
+
+
+
+
+
+
+{{!-- ,
+{
+$project: {
+item: 1, quantity: 1,product: { $arrayElemAt: ['$products', 0] }
+}
+},
+{
+$project: {
+
+'item': 1, 'quantity': 1, 'product._id': 1, 'product.name': 1, 'product.category2': 1, 'product.price': 1,
+'product.image': 1, 'product.offerPrice':1 ,'product.categoryOffer':1
+
+}
+} --}}
+
+
+
+
+
+
+
+
+{{!-- 
+<div class="container col-5 mt-3 mb-5 justify-content-center">
+    <div class="signup__form row">
+        <form id="salesReportForm">
+            <div class="row mt-4">
+                <div class="col">
+                    <h4 class="bg-gray-300 p-4 text-left font-weight-bold">Sales Report</h4>
+                    <div class="px-3 px-4">
+                        <div class="col row">
+                            <div class="signup__input col">
+                                <p>From Date: </p>
+                                <input type="date" name="fromDate" id="fromDate" onchange="getFromDate()" />
+                            </div>
+                            <div class="signup__input col">
+                                <p>Till Date: </p>
+                                <input type="date" name="tillDate" id="tillDate" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <div class="signup__input">
+                            <p> </p>
+                            <button class="btn btn-success px-4 py-2" onclick="getReports()"
+                                style="border-radius: 30px;">
+                                View Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </form>
+</div>
+</div> --}}
+
+
+
+
+
+{{!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<div class="container">
+    <canvas id="oilChart" width="600" height="400"></canvas>
+</div>
+
+<script>
+    var oilCanvas = document.getElementById("oilChart");
+
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+
+    var oilData = {
+        labels: [
+            "Saudi Arabia",
+            "Russia",
+            "Iraq",
+            "United Arab Emirates",
+            "Canada"
+        ],
+        datasets: [
+            {
+                data: [133.3, 86.2, 52.2, 51.2, 50.2],
+                backgroundColor: [
+                    "#FF6384",
+                    "#63FF84",
+                    "#84FF63",
+                    "#8463FF",
+                    "#6384FF"
+                ]
+            }]
+    };
+
+    var pieChart = new Chart(oilCanvas, {
+        type: 'pie',
+        data: oilData
+    });
+
+</script> --}}
+
+
+
+
+
+<!--Container Main start-->
+{{!-- <div class="height-100 bg-light">
+    <h4>Main Components</h4>
+</div> --}}
+<!--Container Main end-->
+
+
+{{!--
+<a class="dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown link
+</a>
+
+<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+</ul>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script> --}}
+
+
+
+
+
+{{!-- <style>
+    body {
+        color: #333;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    h1,
+    h1+p {
+        margin: 30px 15px 0;
+        font-weight: 300;
+    }
+
+    h1+p a {
+        color: #333;
+    }
+
+    h1+p a:hover {
+        text-decoration: none;
+    }
+
+    h2 {
+        margin: 60px 15px 0;
+        padding: 0;
+        font-weight: 300;
+    }
+
+    h2 span {
+        margin-left: 1em;
+        color: #aaa;
+        font-size: 85%;
+    }
+
+    .column {
+        margin: 15px 15px 0;
+        padding: 0;
+    }
+
+    .column:last-child {
+        padding-bottom: 60px;
+    }
+
+    .column::after {
+        content: '';
+        clear: both;
+        display: block;
+    }
+
+    .column div {
+        position: relative;
+        float: left;
+        width: 300px;
+        height: 200px;
+        margin: 0 0 0 25px;
+        padding: 0;
+    }
+
+    .column div:first-child {
+        margin-left: 0;
+    }
+
+    .column div span {
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        z-index: -1;
+        display: block;
+        width: 300px;
+        margin: 0;
+        padding: 0;
+        color: #444;
+        font-size: 18px;
+        text-decoration: none;
+        text-align: center;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+        opacity: 0;
+    }
+
+    figure {
+        width: 300px;
+        height: 200px;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    figure:hover+span {
+        bottom: -36px;
+        opacity: 1;
+    }
+
+
+
+
+    /* Zoom Out #1 */
+    .hover03 figure img {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+
+    .hover03 figure:hover img {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+</style>
+
+
+
+
+
+<div class="hover03 column">
+
+    <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+
+
+
+</div>
+
+
+
+
+--}}
+
+
+
+
+
+
+
+
+
+
+{{!--
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../contrast-bootstrap-pro/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../contrast-bootstrap-pro/css/cdb.css" />
+    <script src="../contrast-bootstrap-pro/js/cdb.js"></script>
+    <script src="../contrast-bootstrap-pro/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/9d1d9a82d2.js" crossorigin="anonymous"></script>
+
+    <title>How to create bootstrap charts using bootstrap 5</title>
+</head>
+<style>
+    .chart-container {
+        width: 50%;
+        height: 50%;
+        margin: auto;
+    }
+</style>
+
+<body>
+    <div class="card chart-container">
+        <canvas id="chart"></canvas>
+    </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js">
+</script>
+<script>
+    const ctx = document.getElementById("chart").getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["sunday", "monday", "tuesday",
+                "wednesday", "thursday", "friday", "saturday"],
+            datasets: [{
+                label: 'Last week',
+                backgroundColor: 'rgba(161, 198, 247, 1)',
+                borderColor: 'rgb(47, 128, 237)',
+                data: [3000, 4000, 2000, 5000, 8000, 9000, 2000],
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }]
+            }
+        },
+    });
+</script>
+
+</html> --}}
+
+{{!-- end --}}
+
+
+{{!-- fhdddddddddddddddddddddddddddddj --}}
+
+
+
+ <style>
+    a {
+        text-decoration: none;
+    }
+
+    .text-info {
+        color: #31708f;
+    }
+
+    .physicianList ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .physicianList ul li {
+        display: inline-block;
+        width: 240px;
+        float: left;
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
+
+    .physicianBox {
+        border: 1px solid #ddd;
+        color: #333;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 20px;
+        background-color: #f5f5f5;
+
+    }
+
+    .physicianBox .physicianPic {
+        padding: 15px 0;
+        background-color: #fff;
+        text-align: center;
+    }
+
+    .physicianBox .physicianPic img {
+        border: 6px solid #f8f8f8;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        transition: all 0.3s ease 0s;
+        margin: 0 auto;
+        height: 120px;
+        width: 120px;
+    }
+
+    .physicianInfo {
+        padding: 10px;
+        text-align: center;
+        border-top: 1px solid #eee;
+    }
+
+    .physicianInfo h6 {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .physicianBox strong {
+        color: #444;
+    }
+
+    .physicianBox p {
+        font-size: 13px;
+        margin: 0;
+        line-height: 22px;
+    }
+
+    .physicianBio {
+        position: absolute;
+        right: 0;
+        bottom: 3px;
+    }
+
+    .physicianModal {
+        text-align: center;
+    }
+
+    .physicianModal .physicianPic img {
+        border: 6px solid #f8f8f8;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        transition: all 0.3s ease 0s;
+        margin: 0 auto;
+        height: 180px;
+        width: 180px;
+    }
+
+    .physicianModal .info p,
+    .physicianModal .info .text-info {
+        margin: 0;
+    }
+
+    .showBioBtn {
+        background-color: #337ab7;
+        padding: 5px 10px;
+        color: #fff;
+        font-size: 12px;
+    }
+
+    /*Pagination CSS*/
+    #page_navigation {
+        clear: both;
+        margin: 20px 0;
+    }
+
+    #page_navigation a {
+        padding: 3px 6px;
+        border: 1px solid #2e6da4;
+        margin: 2px;
+        color: black;
+        text-decoration: none
+    }
+
+    .active_page {
+        background: #337ab7;
+        color: white !important;
+    }
+</style>
+
+<h2>Our Team</h2>
+<div class="physicianList">
+    <input type='hidden' id='current_page' />
+    <input type='hidden' id='show_per_page' />
+    <ul id="main-div">
+        {{#each products}}
+        <li>
+            <div class="physicianBox">
+                <div class="physicianPic">
+                    <img src="/images/{{this.image.[0]}}" alt="user_4" border="0">
+                </div>
+
+                <div class="physicianInfo">
+                    <div class="info">
+                        <h6><strong>{{this.name}}</strong></h6>
+                        <p class="text-info">{{this.description}}</p>
+                        <p>{{this.category}}</p>
+                        <p>{{this.price}}</p>
+                    </div>
+
+                </div>
+
+                <div class="physicianBio">
+                    <a class="showBioBtn" href="javascript:void(0)">Show BIO</a>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+
+    </ul>
+</div>
+
+<div id='page_navigation'></div>
+
+<script>
+    jQuery(document).ready(function () {
+
+        //Pagination JS
+        //how much items per page to show
+        var show_per_page = 4;
+        //getting the amount of elements inside main-div div
+        var number_of_items = $('#main-div').children().size();
+        console.log(number_of_items)
+        //calculate the number of pages we are going to have
+        var number_of_pages = Math.ceil(number_of_items / show_per_page);
+
+        //set the value of our hidden input fields
+        $('#current_page').val(0);
+        $('#show_per_page').val(show_per_page);
+
+        //now when we got all we need for the navigation let's make it '
+
+        /* 
+        what are we going to have in the navigation?
+            - link to previous page
+            - links to specific pages
+            - link to next page
+        */
+        var navigation_html = '<a class="previous_link" href="javascript:previous();">Prev</a>';
+        var current_link = 0;
+        while (number_of_pages > current_link) {
+            navigation_html += '<a class="page_link" href="javascript:go_to_page(' + current_link + ')" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+            current_link++;
+        }
+        navigation_html += '<a class="next_link" href="javascript:next();">Next</a>';
+
+        $('#page_navigation').html(navigation_html);
+
+        //add active_page class to the first page link
+        $('#page_navigation .page_link:first').addClass('active_page');
+
+        //hide all the elements inside main-div div
+        $('#main-div').children().css('display', 'none');
+
+        //and show the first n (show_per_page) elements
+        $('#main-div').children().slice(0, show_per_page).css('display', 'block');
+
+    });
+
+
+
+    //Pagination JS
+
+    function previous() {
+
+        new_page = parseInt($('#current_page').val()) - 1;
+        //if there is an item before the current active link run the function
+        if ($('.active_page').prev('.page_link').length == true) {
+            go_to_page(new_page);
+        }
+
+    }
+
+    function next() {
+        new_page = parseInt($('#current_page').val()) + 1;
+        //if there is an item after the current active link run the function
+        if ($('.active_page').next('.page_link').length == true) {
+            go_to_page(new_page);
+        }
+
+    }
+    function go_to_page(page_num) {
+        //get the number of items shown per page
+        var show_per_page = parseInt($('#show_per_page').val());
+
+        //get the element number where to start the slice from
+        start_from = page_num * show_per_page;
+
+        //get the element number where to end the slice
+        end_on = start_from + show_per_page;
+
+        //hide all children elements of main-div div, get specific items and show them
+        $('#main-div').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+
+        /*get the page link that has longdesc attribute of the current page and add active_page class to it
+        and remove that class from previously active page link*/
+        $('.page_link[longdesc=' + page_num + ']').addClass('active_page').siblings('.active_page').removeClass('active_page');
+
+        //update the current page input field
+        $('#current_page').val(page_num);
+    }
+</script> 
+
+
+{{!--
+{ { !-- const length = {{{ length } } }
+if (length < 7) { document.getElementById('pagination-btn').style.display='none' } else if (length < 13) {
+    document.getElementById('2').style.display='none' document.getElementById('3').style.display='none'
+    document.getElementById('4').style.display='none' document.getElementById('5').style.display='none' } else if
+    (length < 12) { document.getElementById('3').style.display='none' document.getElementById('4').style.display='none'
+    document.getElementById('5').style.display='none' } else if (length < 18) {
+    document.getElementById('4').style.display='none' document.getElementById('5').style.display='none' } else if
+    (length < 24) { document.getElementById('5').style.display='none' } --}} {{!-- <button class="btn btn-success"
+    onclick="bootstrapAlert()">
+    click
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
+
+    <script>
+        function bootstrapAlert() {
+
+            $.bootstrapGrowl("My message", {
+                type: 'success'
+            });
+        }
+    </script> --}}
+
+
+
+
+
+
+
+
+    {{!--
+    <link rel="stylesheet" href="">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+        body {
+            background-color: #eeeeee;
+            font-family: 'Open Sans', serif;
+            font-size: 14px
+        }
+
+        .mt-100 {
+            margin-top: 150px
+        }
+
+        .filter-group {
+            border-bottom: 1px solid #e4e4e4
+        }
+
+        .card {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0.37rem
+        }
+
+        .card-header {
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0;
+            background-color: #fff;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+        }
+
+        .filter-group .card-header {
+            border-bottom: 0
+        }
+
+        .icon-control {
+            margin-top: 6px;
+            float: right;
+            font-size: 80%
+        }
+
+        .list-menu {
+            list-style: none;
+            margin: 0;
+            padding-left: 0
+        }
+
+        .list-menu a {
+            color: #343a40
+        }
+
+        a {
+            text-decoration: none !important;
+            background-color: transparent
+        }
+
+        .checkbox-btn {
+            position: relative
+        }
+
+        .checkbox-btn input {
+            position: absolute;
+            z-index: -1;
+            opacity: 0
+        }
+
+        .checkbox-btn input:checked~.btn {
+            border-color: #3167eb;
+            background-color: #3167eb;
+            color: #fff
+        }
+
+        .btn-light {
+            display: inline-block;
+            font-weight: 600;
+            color: #343a40;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: #eee;
+            border: 1px solid #eee;
+            padding: 0.45rem 0.85rem;
+            font-size: 10px;
+            line-height: 1.5;
+            border-radius: 0.37rem
+        }
+
+        .btn-light:hover {
+            background-color: #fff;
+            border-color: #989898
+        }
+
+        .btn-medium {
+            font-size: 12px;
+            padding: 10px 22px;
+            display: inline-block;
+            margin-right: 20px;
+            letter-spacing: 2px;
+            border: 1px solid #157af6;
+            width: 100%
+        }
+
+        .highlight-button:hover {
+            background-color: #157af6;
+            border: 2px solid #157af6;
+            color: #fff
+        }
+
+        .custom-control {
+            position: relative;
+            display: block;
+            min-height: 1.5rem;
+            padding-left: 1.5rem
+        }
+    </style>
+
+
+    <div class="container-fluid mt-100">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <article class="filter-group">
+                        <header class="card-header"> <a href="#" data-toggle="collapse" data-target="#collapse_aside1"
+                                data-abc="true" aria-expanded="false" class="collapsed"> <i
+                                    class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Categories </h6>
+                            </a> </header>
+                        <div class="filter-content collapse" id="collapse_aside1" style="">
+                            <div class="card-body">
+                                <ul class="list-menu">
+                                    <li><a href="#" data-abc="true">Electronics </a></li>
+                                    <li><a href="#" data-abc="true">Watches </a></li>
+                                    <li><a href="#" data-abc="true">Laptops </a></li>
+                                    <li><a href="#" data-abc="true">Clothes </a></li>
+                                    <li><a href="#" data-abc="true">Accessories </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="filter-group">
+                        <header class="card-header"> <a href="#" data-toggle="collapse" data-target="#collapse_aside2"
+                                data-abc="true" aria-expanded="false" class="collapsed"> <i
+                                    class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Price </h6>
+                            </a> </header>
+                        <div class="filter-content collapse" id="collapse_aside2" style="">
+                            <div class="card-body"> <input type="range" class="custom-range" min="0" max="100" name="">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6"> <label>Min</label> <input class="form-control"
+                                            placeholder="$0" type="number"> </div>
+                                    <div class="form-group text-right col-md-6"> <label>Max</label> <input
+                                            class="form-control" placeholder="$1,0000" type="number"> </div>
+                                </div> <a href="#" class="highlight-button btn btn-medium button xs-margin-bottom-five"
+                                    data-abc="true">Apply Now</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="filter-group">
+                        <header class="card-header"> <a href="#" data-toggle="collapse" data-target="#collapse_aside3"
+                                data-abc="true" aria-expanded="false" class="collapsed"> <i
+                                    class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Size </h6>
+                            </a> </header>
+                        <div class="filter-content collapse" id="collapse_aside3" style="">
+                            <div class="card-body"> <label class="checkbox-btn"> <input type="checkbox"> <span
+                                        class="btn btn-light"> XS </span> </label> <label class="checkbox-btn"> <input
+                                        type="checkbox"> <span class="btn btn-light"> SM </span> </label> <label
+                                    class="checkbox-btn"> <input type="checkbox"> <span class="btn btn-light"> LG
+                                    </span>
+                                </label> <label class="checkbox-btn"> <input type="checkbox"> <span
+                                        class="btn btn-light">
+                                        XXL </span> </label> <label class="checkbox-btn"> <input type="checkbox"> <span
+                                        class="btn btn-light"> XXXL </span> </label> </div>
+                        </div>
+                    </article>
+                    <article class="filter-group">
+                        <header class="card-header"> <a href="#" data-toggle="collapse" data-target="#collapse_aside4"
+                                data-abc="true" class="collapsed" aria-expanded="false"> <i
+                                    class="icon-control fa fa-chevron-down"></i>
+                                <h6 class="title">Rating </h6>
+                            </a> </header>
+                        <div class="filter-content collapse" id="collapse_aside4" style="">
+                            <div class="card-body"> <label class="custom-control"> <input type="checkbox" checked=""
+                                        class="custom-control-input">
+                                    <div class="custom-control-label">Better </div>
+                                </label> <label class="custom-control"> <input type="checkbox" checked=""
+                                        class="custom-control-input">
+                                    <div class="custom-control-label">Best </div>
+                                </label> <label class="custom-control"> <input type="checkbox" checked=""
+                                        class="custom-control-input">
+                                    <div class="custom-control-label">Good</div>
+                                </label> <label class="custom-control"> <input type="checkbox" checked=""
+                                        class="custom-control-input">
+                                    <div class="custom-control-label">Not good</div>
+                                </label> </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script> --}}

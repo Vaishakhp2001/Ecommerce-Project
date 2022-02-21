@@ -1,0 +1,29 @@
+<section>
+    <div class="container mt-5">
+        <table class="table" id="example">
+           
+            <thead class="bg-primary bg-gradient">
+                <tr>
+                    <th>No</th>
+                    <th>Category</th>
+                    <th>Subcategory Name</th>
+                    <th>Options</th>
+                   
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr>
+                {{#each Subcategory}}
+                    <td>{{counter @index}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.Subcategory}}</td>
+                    <td>
+                        <a href="/admin/delete-subcategory?_id={{this._id}}&name={{this.category}}"><button class="btn btn-danger">Delete</button></a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>

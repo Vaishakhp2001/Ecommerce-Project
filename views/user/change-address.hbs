@@ -1,0 +1,69 @@
+<div class="col-lg-8 mx-auto  border border-1 rounded ml-5"  id="main">
+    <form id="formdsub" action="/change-address" method="post">
+        <div class="p-5">
+            <div class="">
+
+                <h3 class="text-center tw-bold mb-3">Billing Address</h3>
+                <input type="hidden" name="count" value="{{userdetails.count}}">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="text" id="name1" name="firstname" class="form-control"
+                                value="{{userdetails.firstname}}" />
+                            <label class="form-label" for="form6Example1">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="text" id="name2" name="lastname" class="form-control"
+                                value="{{userdetails.lastname}}" />
+                            <label class="form-label" for="form6Example2">Last name</label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                    <input type="text" id="address" name="address" class="form-control"
+                        value="{{userdetails.address}}" />
+                    <label class="form-label" for="form6Example4">Address</label>
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <input type="email" id="email" name="email" class="form-control" value="{{userdetails.email}}" />
+                    <label class="form-label" for="form6Example5">Email</label>
+                </div>
+
+                <!-- Number input -->
+                <div class="form-outline mb-4">
+                    <input type="tel" id="phone" name="phone" class="form-control" value="{{userdetails.phone}}" />
+                    <label class="form-label" for="form6Example6">Phone</label>
+                </div>
+
+                {{!-- Pincode --}}
+                <div class="form-outline mb-4">
+                    <input type="tel" id="pincode" name="pincode" class="form-control"
+                        value="{{userdetails.pincode}}" />
+                    <label class="form-label" for="form6Example6">Pincode</label>
+                </div>
+
+                <p>Address Type</p>
+                <input type="radio" placeholder="Home" name="address_type" id="Home" value="Home">
+                <label for="Home">Home</label>
+                <input type="radio" placeholder="Office" name="address_type" id="Office" value="Office">
+                <label for="Office">Office</label>
+
+                <input type="hidden" name="userId" value='{{userdetails._id}}'>
+
+
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

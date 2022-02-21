@@ -1,0 +1,35 @@
+<section>
+    <div class="container mt-5">
+        <table class="table" id="example">
+           
+            <thead class="bg-primary bg-gradient">
+                <tr>
+                    <th>No</th>
+                    <th>Coupon code</th>
+                    <th>Discount</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Options</th>
+                   
+                </tr>
+            </thead>
+            
+            <tbody>
+                {{#each offers}}
+                <tr>
+                    <td>{{counter @index}}</td>
+                    <td>{{this.offers.coupon}}</td>
+                    <td>{{this.offers.discount}}</td>
+                    <td>{{this.offers.start_date}}</td>
+                    <td>{{this.offers.end_date}}</td>
+                    
+                    <td>
+                        <a href="/admin/delete-coupon-offer?_id={{this._id}}&coupon={{this.offers.coupon}}"><button class="btn btn-danger">Delete</button></a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <a class="btn btn-primary" href="/admin/coupon-offer">ADD OFFER</a>
+    </div>
+</section>

@@ -1,0 +1,30 @@
+<section>
+    <div class="container mt-5">
+<table class="table mt-5" id="example">
+    <a href="/admin/add-categories"><button class="btn btn-primary">Add category</button></a>
+  <thead class="bg-primary">
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Options</th> 
+      
+    </tr>
+  </thead>
+  <tbody>
+      {{#each categories}}
+    <tr>
+      <th scope="row">{{counter @index}}</th>
+      <td>{{this.category}}</td>
+      <td>
+          <a href="/admin/add-sub-categories/{{this._id}}"><button class="btn btn-primary">Add Subcategory</button></a>
+          <a href="/admin/delete-category/{{this._id}}"><button class="btn btn-danger">Delete</button></a>
+      </td>
+     
+    </tr>
+       {{/each}}
+  </tbody>
+</table>
+
+  </div>
+</section>
+

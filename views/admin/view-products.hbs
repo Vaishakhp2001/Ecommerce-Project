@@ -1,0 +1,45 @@
+<section>
+    <div class="container mt-2">
+        <div class="btn mt-5">
+            <a href="/admin/add-product" class="btn btn-primary my-auto ">Add Product</a>
+        </div>
+<table class="table mt-2 border border-primary" id="example">
+  <thead class="bg-primary">
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Name</th>
+      {{!-- <th scope="col">Category</th> --}}
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Count</th>
+      <th scope="col">Image</th>
+      <th scope="col">Options</th>
+
+  
+    </tr>
+  </thead>
+  <tbody>
+    
+      {{#each products}}
+
+    <tr id="row-id">
+      <th scope="row">{{counter @index}}</th>
+      <td>{{this.name}}</td>
+      {{!-- <td>{{this.category2}}</td> --}}
+      <td>{{this.description}}</td>
+      <td>{{this.price}}</td>
+      <td>{{this.count}}</td>
+      
+      <td><img id="change_image" src="/images/{{this.image.[0]}}"  alt="" style="width: 60px;"></td>
+     
+      <td>
+          <a href="/admin/edit-product/{{this._id}}"><button class="btn btn-primary">Edit</button></a>
+          <a href="/admin/delete-product/{{this._id}}"><button class="btn btn-danger">Delete</button></a>
+      </td>
+    </tr>
+
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</section>

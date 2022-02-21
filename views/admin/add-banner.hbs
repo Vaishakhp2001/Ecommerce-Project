@@ -1,0 +1,31 @@
+<section>
+    <div class="container">
+        <form action="/admin/add-banner" class="row g-3 mx-auto mt-3 col-md-12 col-sm-12 col-12" style="width: 700px;"
+            enctype="multipart/form-data" method="post" id="formdsub">
+            <h2 class="text-center fw-bold">Add Banner</h2>
+          
+ 
+            <div class="col-10">
+                <label for="inputAddress" class="form-label">Description</label>
+                <input type="text" class="form-control" id="inputAddress" name="description">
+            </div>
+
+
+            <div class="mb-3 col-10">
+                <label for="formFile" class="form-label">Image</label>
+                <img src="" alt="" id="imageId1" style="width:50px" class="mb-2">
+                <input class="form-control" type="file" id="formFile1" accept="image/*" name="image"
+                    onchange="viewImage(event)" multiple>
+                
+            </div>
+                       {{!-- crop image --}}
+            
+
+
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-lg">Add Product</button>
+            </div>
+        </form>
+    </div>
+</section>

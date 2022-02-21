@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-lg-6 mt-5 text-center">
+            <h4>PRODUCT OFFER</h4>
+            <form action="/admin/add-product-offer" method="post">
+            <select class="form-select" name="product" aria-label="Default select example">
+                <option selected>Select Product</option>
+                {{#each products}}
+                <option value="{{this.name}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+            <div class="mb-3 mt-3">
+                <label for="formGroupExampleInput" class="form-label">OFFER PERCENTAGE %</label>
+                <input type="text" class="form-control" name="discount" id="formGroupExampleInput"
+                    placeholder="%">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="formGroupExampleInput2" class="form-label">OFFER START DATE</label>
+                <input type="date" class="form-control" name="start_date" id="formGroupExampleInput2"
+                    >
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="formGroupExampleInput2" class="form-label">OFFER END DATE</label>
+                <input type="date" class="form-control" name="end_date" id="formGroupExampleInput2"
+                    >
+            </div>
+            <div class="mb-3 mt-3">
+                
+                    <button type="submit" class="btn btn-primary">SUBMIT</button>
+
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

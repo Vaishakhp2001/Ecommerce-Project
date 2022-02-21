@@ -1,0 +1,42 @@
+<section>
+    <div class="container">
+        <form action="/admin/edit-banners/{{banner._id}}" class="row g-3 mx-auto mt-3 col-md-12 col-sm-12 col-12" style="width: 700px;"
+            enctype="multipart/form-data" method="post" id="formdsub">
+            <h2 class="text-center fw-bold">Edit Banner</h2>
+          
+ 
+            <div class="col-10">
+                <label for="inputAddress" class="form-label">Description</label>
+                <input type="text" class="form-control" id="inputAddress" name="description" value="{{banner.description}}">
+            </div>
+
+
+            <div class="mb-3 col-10">
+                <label for="formFile" class="form-label">Image</label>
+                <img src="/images/{{banner.image}}" alt="" id="imageId1" style="width:50px" class="mb-2">
+                <input class="form-control" type="file" id="formFile1" accept="image/*" name="image" value=""
+                    onchange="viewImage(event)" multiple>
+                
+            </div>
+                       {{!-- crop image --}}
+            
+
+
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-lg">Add</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+     formFile1.onchange = event => {
+        const [file] = formFile1.files
+        if (file) {
+            imageId1.src = URL.createObjectURL(file)
+            
+            
+        }
+    }
+</script>

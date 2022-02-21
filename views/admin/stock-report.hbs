@@ -1,0 +1,51 @@
+<div class="text-center py-3 mt-5 bg-green-200">
+  <div class="">
+    <main class="">
+      <h4>Stock Report</h4>
+    </main>
+    <div class="px-2 bg-light my-5 mx-auto">
+      <table id="report" class="display wrap table-hover" style="width:100%">
+        <thead class="bg-primary">
+            <tr>
+                <th>SL No.</th>
+                <th>
+                  
+                  Product
+                </th>
+                <th>Stock</th>
+                <th>Sold Qty</th>
+                <th>Stock Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each Products}}
+            <tr>
+                <td> {{counter @index}} </td>
+                <td>
+                  {{this.name}}</td>
+                <td>{{this.count}}</td>
+                <td>{{this.quantity}}</td>
+                <td><span class="badge rounded-pill bg-{{this.statusColor}}">{{this.stockStatus}}</span></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    </div> 
+  </div>
+</div>
+
+<script>
+
+$(document).ready(function() {
+    $('#report').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+        { extend: 'excel', text: 'Export Report' }
+    ]
+    } );
+  });
+</script>
+
+
+
+

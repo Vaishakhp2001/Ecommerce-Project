@@ -1,0 +1,400 @@
+{{!-- modal --}}
+
+<div class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <h2 class="text-danger text-center" id="body">Cart is empty</h2>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="reload()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="products()">Add products</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <form action="/place-order" id="formdsub" method="post">
+        <div class="row">
+
+            {{!-- delivery details --}}
+            <div class="col-lg-8 radio-group">
+                <div class="card ml-3 mt-3">
+                    <div class="card-header text-light" style="background-color:#055052;">
+                        <h5>Delivery Address</h5>
+                    </div>
+                    <div class="card-body ">
+                        <div onclick="selectAddress()" class="address" id="address1">
+                            <input name="radio_group1" type="radio" value="5" />
+                            {{userdetails.firstname}}
+                            {{userdetails.lastname}}<br>
+                            {{userdetails.address}}<br>
+                            {{userdetails.pincode}}<br>
+                            {{userdetails.phone}}<br>
+                            {{userdetails.address_type}}
+                        </div>
+                        <br>
+                        <a href="/change-address?Id={{userdetails._id}}" style="background-color: #055052;"
+                            class="btn btn-primary">Change Address</a>
+                        {{#each userdetails.Address}}
+                        <hr>
+                        <div onclick="selectAddress()" class="address" id="address1">
+                            <input name="radio_group1" type="radio" value="{{@index}}" />
+
+                            {{this.firstname}}
+                            {{this.lastname}}<br>
+                            {{this.address}}<br>
+                            {{this.phone}}<br>
+                            {{this.pincode}}<br>
+                            {{this.address_type}}
+                        </div>
+                        <br>
+                        <a href="/change-address?Id={{../userdetails._id}}&count={{@index}}" class="btn btn-primary"
+                            style="background-color: #055052;">Change Address</a>
+                        {{/each}}
+
+                    </div>
+
+                </div>
+
+
+                <div class="m-5">
+                    <a href="/add-address" class="btn btn-primary" style="background-color: #055052;">Add Address</a>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-4  ">
+                <div class="border border-1 mt-3 sticky-top">
+                    <div class="p-3">
+                        <div>
+
+                            <h3 class="text-secondary">Price details</h3>
+
+                        </div>
+                        <hr>
+                        <h5>Price({{cartCount}} item)
+                            <span id="total_price1" class="float-right">₹{{total}}</span></h5>
+                        
+                         <h5 style="display: none;">Discount
+                            <span id="discount" class="float-right">₹</span></h5>
+                        <hr>
+                        <h4 class="fw-bold">Total Amount <span id="total_price" class="float-right">₹{{total}}</span>
+                        </h4>
+
+                    </div>
+                </div>
+
+            </div>
+
+            {{!-- payment details --}}
+            <div class="col-lg-8">
+                <div class="card ml-3 mt-3">
+                    <div class="card-header text-light" style="background-color: #055052;">
+                        <h5>Payment Options</h5>
+                    </div>
+                    <div class="card-body">
+                        <label for="payment">
+                            <h4 id="pay">Payment method</h4>
+                        </label><br><br>
+                        <input type="radio" id="cod" name="payment" value="cod">
+                        <label for="cod">COD</label>
+                        <br>
+                        <br>
+                        <input type="radio" name="payment" id="razorpay" value="razorpay">
+                        <label for="razorpay">Razorpay</label>
+                        <br>
+                        <br>
+                        <input type="radio" name="payment" id="paypal" value="paypal">
+                        <label for="razorpay">Paypal</label>
+                        <br>
+                        <br>
+
+                        <button type="submit" id="myInput" style="background-color: #055052;"
+                            class="btn-primary btn-lg">Checkout</button>
+
+                    </div>
+                </div>
+
+            </div>
+
+    </form>
+    </div>
+    <div class="row">
+            <div class="col-lg-4 col-11 ml-3  mt-2 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/admin/check-coupon" id="formdsub" class="coupon_form" method="get">
+                            <input type="hidden" name="total" value="{{total}}">
+                            <p class="fs-5">Enter Coupon Code</p>
+                            <p class="text-danger" id="err_msg" style="display: none;">Invalid coupon code</p>
+                            <input type="text" name="coupon">
+                            <button type="submit" class="btn btn-sm "
+                                style="background-color: #055052; color:white">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 ml-3 col-11  mt-2 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/admin/check-coupon" id="formdsub" class="coupon_form" method="get">
+                            <p class="alert-danger" id="wallet_empty" style="display: none;">Wallet is empty</p>
+                            <p class="fs-5" >Use Wallet</p>
+                            {{!-- <p class="text-danger" id="err_msg" style="display: none;">Invalid coupon code</p> --}}
+                            <input type="checkbox" name="wallet" onclick="checkWallet('{{total}}')">
+                            <label for="wallet" >Wallet</label>
+                            
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+{{!--
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AfCvvoo-4au-zP3fhXZBXYBE58kP3Tv-zI3KacA8T0V5emeUaDInC-snqcC5quP0rkWOA10gkLoNxhDy"></script>
+--}}
+
+
+<script>
+
+   
+
+
+    $("#formdsub").submit((event) => {
+
+        event.preventDefault()
+
+        $.ajax({
+            url: '/place-order',
+            type: 'POST',
+            data: $("#formdsub").serialize(),
+            success: (response) => {
+                if (response.nobody) {
+                    Swal.fire(
+                        'Please Select Delivery Address '
+                    )
+
+                }
+                else if (response.nopayment) {
+                    Swal.fire(
+                        'Please Enter Payment Details'
+                    )
+                }
+
+                else if (response.codsuccess) {
+                    location.href = '/view-order-products?id='+response.orderId
+
+                }
+                else if (response.productsStatus) {
+
+                    Swal.fire({
+                        title: "cart is empty",
+                        text: 'Add product to cart',
+                        confirmButtonText: '<a class="text-white" href="/products">Add Products</a>'
+                    })
+
+                }
+                else if (response.paypalSuccess) {
+                    
+                    $.ajax({
+                        url: '/buy',
+                        type: 'post',
+                        
+                        success: (response) => {                           
+                            location.href = response
+                        }
+                    })
+
+
+                }
+                else {
+
+                    razorpayPayment(response)
+
+                }
+            }
+        })
+    })
+
+    $('.coupon_form').submit((event) => {
+        console.log("submissioion")
+        event.preventDefault()
+
+        $.ajax({
+            url: '/check-coupon',
+            method: 'get',
+            data: $('.coupon_form').serialize(),
+            success: (response) => {
+                if (response.Err) {
+                    console.log("err")
+                    document.getElementById('err_msg').style.display = 'block'
+                }
+                else {
+                    console.log("total")
+                    console.log(response.total)
+                    document.getElementById('err_msg').style.display = 'none'
+                    document.getElementById('total_price').textContent = response.total
+                    document.getElementById('total_price1').textContent = response.total
+
+                    
+                }
+            }
+        })
+    })
+
+    function checkWallet(total){
+                   
+        $.ajax({
+            url:'/check-wallet?total='+total,
+            method:'get',
+            success:(response)=>{
+                if(response.zeroWallet){
+                    document.getElementById('wallet_empty').style.display = 'block'
+                }
+                else{
+                    console.log(response)
+                    document.getElementById('wallet_empty').style.display = 'none'
+                    document.getElementById('total_price').textContent = response.data
+                    document.getElementById('total_price1').textContent = response.data
+                }
+            }
+        })
+    }
+
+
+
+
+    function razorpayPayment(order) {
+
+        var options = {
+            "key": "rzp_test_TZBT8fsLswSnDr", // Enter the Key ID generated from the Dashboard
+            "amount": "order.amount", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "BROADCAMP",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Vaishakh Prabhakaran",
+                "email": "vaishakhp11@gmail.com",
+                "contact": "8547348256"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+    function verifyPayment(payment, order) {
+
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment, order
+            },
+            type: 'post',
+            success: (response) => {
+                if (response.status) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Payment Success',
+                        showConfirmButton: false,
+                        timer: 2000
+                        
+                    })
+                    $.ajax({
+                        url:"/delete-order-product",
+                        method:"get",
+                        data:{
+                            order:order
+                        },
+                        success:(response)=>{
+                            window.location.href = '/view-order-products?id='+order.receipt
+                        }
+                    })
+                    
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Payment Failed!',
+
+                    })
+                }
+            }
+        })
+    }
+
+
+
+    var modalWrap = null;
+    const showModal = () => {
+        if (modalWrap !== null) {
+            modalWrap.remove();
+        }
+        modalWrap = document.createElement('div')
+        modalWrap.innerHTML = `
+            <div class="modal fade" id="myModal" tabindex="-1">
+                 <div class="modal-dialog">
+                        <div class="modal-content">
+                             <div class="modal-header bg-light">
+                                <h5 class="modal-title">Order placed successfully</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                             </div>
+                           
+                             <div class="modal-footer bg-light">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" onclick="viewOrders()">View orders</button>
+                            </div>
+                        </div>
+                 </div>
+            </div>
+        `
+        document.body.append(modalWrap);
+        var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+        modal.show();
+    }
+
+    function viewOrders() {
+        location.href = "/view-orders"
+    }
+    function products() {
+        location.href = '/products'
+    }
+    function reload() {
+        location.href = '/place-order'
+    }
+
+
+</script>

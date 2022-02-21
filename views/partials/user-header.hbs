@@ -1,0 +1,155 @@
+{{!-- start header --}}
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Free Aditii Website Template | Home :: w3layouts</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+	<link href="/stylesheets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+
+<body>
+	<!-- start header -->
+	<div class="header_bg mt-4 ">
+		<div class="wrap">
+			<div class="">
+				<div class="logo mb-3">
+					<a href="/images/index.html"><img src="/images/images/logo.png" alt="" /> </a>
+				</div>
+				<div class="h_icon">
+
+					{{!-- <ul class="icon1 sub-icon1">
+						<li>
+							<a class="active-icon c1 " href="/cart">
+								<i style="font-size :1rem !important;"></i>
+							</a>
+							<span id="cart-count">{{cartCount}}</span>
+
+						</li>
+					</ul> --}}
+					<div>
+
+						<a href="/cart" class="position-relative"><i class="fs-3 fa fa-shopping-cart"
+								style="color: #3dc4b6;"><span style="font-size:xx-small;" id="cart-count"
+									class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{{cartCount}}</span></i></a>
+
+						<a href="/profile" class="ml-3"><i class="fs-3 fa fa-user" style="color: #3dc4b6;"></i></a>
+					</div>
+				</div>
+				<div class="h_search">
+					<form action="/products" method="get" id="search_box">
+						<input type="text" name="field">
+						<input value="" type="submit" >
+					</form>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<div class="header_btm ">
+		<div class="wrap ">
+			<div class="header_sub ">
+				<div class="h_menu ">
+					<ul class="mx-auto my-auto ">
+						<li class="active"><a href="/">Home</a></li> |
+						<li><a href="/products">Products</a></li> |
+						<li><a href="/cart">Cart</a></li> |
+						{{#if status}}
+						<li><a href="/orders">Orders</a></li> |
+						<li><a href="/profile">Profile</a></li> |
+
+						{{/if}}
+						<li><a href="/wishlist">Wishlist</a></li> |
+
+
+						{{#if status}}
+						<li><a href="/logout">Logout</a> </li>
+						{{else}}
+						<li><a href="/login">Login</a> </li>
+						{{/if}}
+
+					</ul>
+				</div>
+				<div class="top-nav">
+					<nav class="nav">
+						<a href="#" id="w3-menu-trigger"> </a>
+						<ul class="nav-list" style="">
+							<li class="nav-item"><a class="active" href="/">Home</a></li>
+							<li class="nav-item"><a href="/products">Products</a></li>
+							<li class="nav-item"><a href="/cart">Cart</a></li>
+							<li class="nav-item"><a href="/wishlist">Wishlist</a></li>
+							<li class="nav-item"><a href="">Checkout</a></li>
+							{{#if status}}
+							<li class="nav-item"><a href="/orders"> Orders</a></li>
+							<li class="nav-item"><a href="/profile"> Profile</a></li>
+							<li class="nav-item"><a href="/logout"> Logout</a></li>
+							{{else}}
+							<li class="nav-item"><a href="/login"> Login</a></li>
+							{{/if}}
+						</ul>
+
+					</nav>
+					<div class="search_box">
+						<form action="/products" method="get">
+							<input type="text" name="field">
+							<input value="" type="submit">
+						</form>
+					</div>
+					<div class="clear"> </div>
+					<script src="/javascripts/js/responsive.menu.js"></script>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="/javascripts/js/jquery.min.js"></script>
+	<!-- start slider -->
+	<link href="/stylesheets/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+	<script type="text/javascript" src="/javascripts/js/modernizr.custom.28468.js"></script>
+	<script type="text/javascript" src="/javascripts/js/jquery.cslider.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#da-slider').cslider();
+		});
+	</script>
+	<!-- Owl Carousel Assets -->
+	<link href="/stylesheets/css/owl.carousel.css" rel="stylesheet">
+	<!-- Owl Carousel Assets -->
+	<!-- Prettify -->
+	<script src="/javascripts/js/owl.carousel.js"></script>
+	<script>
+		$(document).ready(function () {
+
+			$("#owl-demo").owlCarousel({
+
+				lazyLoad: true,
+				autoPlay: true,
+				navigation: true,
+				navigationText: ["", ""],
+				rewindNav: false,
+				scrollPerPage: false,
+				pagination: false,
+				paginationNumbers: false,
+			});
+
+		});
+	</script>
+	<!-- //Owl Carousel Assets -->
+	<!-- start top_js_button -->
+	<script type="text/javascript" src="/javascripts/js/move-top.js"></script>
+	<script type="text/javascript" src="/javascripts/js/easing.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1200);
+			});
+		});
+	</script>
+</body>
+

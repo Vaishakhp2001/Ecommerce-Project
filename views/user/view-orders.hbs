@@ -1,0 +1,108 @@
+{{!-- modal --}}
+{{!-- <div class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <h2 class="text-danger text-center">Are you sure ?</h2>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reload()">No</button>
+                <button type="button" class="btn btn-primary" id="btn-remove" value=""
+                    onclick="cancel(this.value)">Yes</button>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+{{#if ordersStatus}}
+<section>
+    <div class="container">
+        <div class="row pt-3">
+            <table class="table" id="example">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th>Date</th>
+                        <th>Address</th>
+                        <th>Pincode</th>
+                        <th>Mobile</th>
+                        <th>Amount</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each orders}}
+                    <tr id="{{this._id}}">
+                        <td>{{this.Date}}</td>
+                        <td>{{this.deliveryDetails.Address}}</td>
+                        <td>{{this.deliveryDetails.Pincode}}</td>
+                        <td>{{this.deliveryDetails.Phone}}</td>
+                        <td>{{this.Total}}</td>
+                        <td>{{this.deliveryDetails.Payment}}</td>
+                        <td>{{this.Status}}</td>
+                        <td><a href="/view-order-products/{{this._id}}" class="btn btn-primary">View products</a></td>
+                        <td><button onclick="cancelOrder('{{this._id}}')" class="btn btn-danger">Cancel order</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+{{else}}
+<section>
+    <div class="row justify-content-center">
+
+        <img style="width: 500px" src="/images/logos/project icons.png" alt="">
+    </div>
+</section>
+{{/if}}
+
+
+<script>
+    function cancelOrder(Id) {
+        console.log("order cancel")
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to cancel this order!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, cancel it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: '/cancel-order/' + Id,
+                    method: 'get',
+                    success: (response) => {
+
+                        if (response.status) {
+
+                            Swal.fire(
+                                'Cancelled!',
+                                'Your order has been cancelled.',
+                                'success'
+                            )
+                            document.getElementById(Id).style.display = 'none'
+
+                        }
+                    }
+
+
+                })
+
+            }
+
+
+        })
+    }
+</script>
