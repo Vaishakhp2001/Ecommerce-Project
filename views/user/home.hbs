@@ -33,6 +33,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		-ms-transform: scale(1.2);
 		transform: scale(1.2);
 		transition: 0.5s ease;
+	
+
+	
 	}
 </style>
 <div class="col-7">
@@ -63,15 +66,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 
-<div id="da-slider" class="da-slider" style="overflow-y: hidden;">
+<div id="da-slider" class="da-slider">
 	{{#each banner}}
 	<div class="da-slide">
-		<h2>welcome to aditii</h2>
-		<p>{{this.description}}</p>
+		<h2 >welcome to aditii</h2>
+		<p >{{this.description}}</p>
+		<a href="/products" class="da-link ">shop now</a>
 
-		<a href="/products" class="da-link">shop now</a>
-
-		<div class="da-img"><img class="" src="/images/{{this.image}}" style="height min-height: 300px; min-height:200px;" /></div>
+		<div class="da-img mx-auto" ><img class="" src="/images/{{this.image}}" style="min-height:10rem; " /></div>
 	</div>
 	<nav class="da-arrows">
 		<span class="da-arrows-prev"></span>
@@ -81,23 +83,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 
 <!----start-cursual---->
-<div class="wrap">
+{{!-- <div class="wrap">
 	<!----start-img-cursual---->
 	<div id="owl-demo" class="owl-carousel">
 		{{#each products}}
-		<div class="item">
+		<div class="item " >
 			<div class="cau_left">
 				<a href="/products"><img class="lazyOwl vh-50" data-src="/images/{{this.image.[0]}}"
 						alt="Lazy Owl Image">
 			</div>
-			<div class="cau_left">
-				<h4><a href="details.html"></a></h4>
-
-			</div>
+			
 		</div>
 		{{/each}}
 	</div>
-</div>
+</div> --}}
 {{!--
 </div>
 <div class="item" onclick="location.href='details.html';">
@@ -156,7 +155,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div> --}}
 <!----//End-img-cursual---->
 <!-- start main1 -->
-<div class="main_bg1">
+<div class="main_bg1 mt-3">
 	<div class="wrap">
 		<div class="main1">
 			<h2>featured products</h2>
@@ -169,7 +168,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<!-- start grids_of_3 -->
 
 		{{#each products}}
-		<div class="col-sm-4 col-lg-2 col-md-3 col-6  grow p-3 shadow m-4 rounded" style="position: relative;">
+		<div class="col-sm-4 col-lg-2 col-md-3 col-7  grow p-3 shadow m-4 rounded" style="position: relative;">
 			<a>
 				<a href="/product_details/{{this._id}}"><img src="/images/{{this.image.[0]}}" alt=""/>
 				<a onclick="wishlist('{{this._id}}')"><i class="fa fa-heart position-absolute top-0 end-0 m-3" id="{{this._id}}" style="color: #e7edee;"></i></a></a>
@@ -254,4 +253,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		})
 
 	}
+</script>
+
+<script type="text/javascript">
+		$(function () {
+			$('#da-slider').cslider();
+		});
 </script>

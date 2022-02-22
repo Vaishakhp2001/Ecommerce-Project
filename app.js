@@ -22,7 +22,7 @@ var MongoDBStore = require('connect-mongodb-session')(session);
 
 
 var store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
+  uri: 'mongodb+srv://vaishak:2X8bUhQ5JCETZPia@cluster0.rddhz.mongodb.net/connect_mongodb_session_test?retryWrites=true&w=majority',
   collection: 'mySessions'
 });
 

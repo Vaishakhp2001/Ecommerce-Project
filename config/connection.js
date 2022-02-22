@@ -4,7 +4,7 @@ const state={
 }
 
 module.exports.connect = function(done){
-    const url='mongodb://localhost:27017'
+    const url='mongodb+srv://vaishak:2X8bUhQ5JCETZPia@cluster0.rddhz.mongodb.net/shopping?retryWrites=true&w=majority'
     const dbname = 'shopping'
 
     MongoClient.connect(url,(err,data)=>{
@@ -17,4 +17,4 @@ module.exports.connect = function(done){
 
 module.exports.get=function(){
     return state.db
-}
+} 
