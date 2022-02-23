@@ -717,8 +717,8 @@ router.post('/buy', async (req, res) => {
       "payment_method": "paypal"
     },
     "redirect_urls": {
-      "return_url": "http://localhost:3001/view-order-products?id="+order._id,
-      "cancel_url": "http://localhost:3001/place-order?paypalFail="+true
+      "return_url": "https://aditiishopping.store/view-order-products?id="+order._id,
+      "cancel_url": "https://aditiishopping.store/place-order?paypalFail="+true
     },
     "transactions": [{
       "amount": {
