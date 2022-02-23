@@ -832,7 +832,7 @@ module.exports = {
                         'Address.$[elem].address': data.address,
                         'Address.$[elem].email': data.email,
                         'Address.$[elem].phone': data.phone,
-                        'Address.$[elem].pincode': data.pincode,
+                        'Address.$[elem].pincode': data.pincode, 
                         'Address.$[elem].address_type': data.address_type
                     }
                 },

@@ -8,10 +8,15 @@ const { addressCount } = require('../helpers/user-helpers');
 const userHelpers = require('../helpers/user-helpers');
 var router = express.Router();
 var userHelper = require('../helpers/user-helpers')
+require('dotenv').config()
+
+console.log(process.env.SERVICE_ID)
+console.log(process.env.ACCOUNT_iD)
+console.log(process.env.AUTH_TOCKEN)
+
+const client = require("twilio")(process.env.ACCOUNT_iD,process.env.AUTH_TOCKEN)
 
 
-const twilio = require('../twilio')
-const client = require("twilio")(twilio.accountsId, twilio.authToken)
 
 // twilio
 // const accountSid = process.env.TWILIO_ACCOUNT_SID; 
@@ -23,8 +28,8 @@ const { default: Swal } = require('sweetalert2');
 
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
-  'client_id': 'AfCvvoo-4au-zP3fhXZBXYBE58kP3Tv-zI3KacA8T0V5emeUaDInC-snqcC5quP0rkWOA10gkLoNxhDy',
-  'client_secret': 'EMgbQfvI4PKOk6HoiV4mc5wDHmOL2KirEI94EX8vrOmyW8FNycA8s2W8Z0xE7ofBB2l5TatTqruOUjrZ'
+  'client_id': process.env.CLIENT_ID,
+  'client_secret': process.env.CLIENT_SECRET
 });
 
 
@@ -78,23 +83,23 @@ router.get('/request-otp', (req, res) => {
 router.get('/get_otp', async (req, res) => {
   req.session.phonenumber = req.query.phonenumber
 
-  await client.verify.services('VAfff790887170f2ed311674599e612ee9')
+  await client.verify.services(process.env.SERVICE_ID)
     .verifications
     .create({ to: '+91' + req.session.phonenumber, channel: 'sms' })
     .then((data) => {
       console.log("getotp:", data)
       res.render('./user/verify')
-    }).catch(() => {
-      console.log("eroor occured")
+    }).catch((e) => {
+      console.log(e)
       res.render("user/forgot_password", { error: "Invalid mobile number", formValidate: true })
-      console.log("eroor occured")
-      res.render("user/verify", { error: "Invalid otp" })
+      // console.log("eroor occured")
+      // res.render("user/verify", { error: "Invalid otp" })
     })
 
 })
 
 router.get('/verify', async (req, res) => {
-  await client.verify.services('VAfff790887170f2ed311674599e612ee9')
+  await client.verify.services(process.env.SERVICE_ID)
     .verificationChecks
     .create({ to: '+91' + req.session.phonenumber, code: req.query.code })
     .then((data) => {
@@ -159,16 +164,17 @@ router.post('/login', (req, res) => {
 
 router.post('/signup', async (req, res) => {
   req.session.phone = req.body.phone
+  console.log(req.session.phone)
   console.log(req.body.Wallet);
   await userHelper.doSignup(req.body).then(async (response) => {
-    await client.verify.services('VAfff790887170f2ed311674599e612ee9')
+    await client.verify.services(process.env.SERVICE_ID)
       .verifications
       .create({ to: '+91' + req.session.phone, channel: 'sms' })
       .then((verification) => {
         console.log("success ")
         res.render('./user/signupotp')
       }).catch(() => {
-        console.log("eroor occured")
+        console.log("signup error")
         res.render("user/signup", { msg: "Invalid mobile number" })
       })
   }).catch((err) => {
@@ -177,7 +183,7 @@ router.post('/signup', async (req, res) => {
 })
 
 router.get('/resend-otp', async (req, res) => {
-  await client.verify.services('VAfff790887170f2ed311674599e612ee9')
+  await client.verify.services(process.env.SERVICE_ID)
     .verifications
     .create({ to: '+91' + req.session.phonenumber, channel: 'sms' })
     .then((data) => {
@@ -190,7 +196,7 @@ router.get('/resend-otp', async (req, res) => {
 })
 
 router.post('/signupotp', async (req, res) => {
-  await client.verify.services('VAfff790887170f2ed311674599e612ee9')
+  await client.verify.services(process.env.SERVICE_ID)
     .verificationChecks
     .create({ to: '+91' + req.session.phone, code: req.body.code })
     .then((data) => {
@@ -629,7 +635,7 @@ router.get('/address', async (req, res) => {
 
 router.get('/edit-address', async (req, res) => {
   Id = req.query.Id
-  address = req.query.address
+  address = req.query.address 
 
   if (address) {
 
@@ -646,7 +652,7 @@ router.get('/edit-address', async (req, res) => {
   }
   else {
 
-    userdetails = await userHelper.getUserAddress(Id)
+    userdetails = await userHelper.getUserAddress(Id) 
   }
   res.render('user/edit-address', { user: true, status: req.session.user, userdetails })
 
